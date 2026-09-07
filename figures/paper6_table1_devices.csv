@@ -1,0 +1,5 @@
+Device,Type,Min rating (MVar),Max rating (MVar),Unit cost ($M/MVar)
+SVC,Shunt,50,300,0.1
+STATCOM,Shunt,50,250,0.18
+TCSC,Series,50,200,0.12
+UPFC,Hybrid,50,200,0.22

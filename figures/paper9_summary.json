@@ -1,0 +1,88 @@
+{
+  "base_margins_39": {
+    "thermal": 0.0008,
+    "voltage": 0.364,
+    "stability": 0.2,
+    "violations": 0
+  },
+  "representative_scenario": "G1",
+  "arbiter_final_viol_rep": 9,
+  "no_control_final_viol_rep": 14,
+  "violations_by_mode_39": [
+    {
+      "Scenario": "L1",
+      "No Control": 1,
+      "Fixed System 1": 1,
+      "Fixed System 2": 1,
+      "Arbiter": 1
+    },
+    {
+      "Scenario": "L2",
+      "No Control": 4,
+      "Fixed System 1": 4,
+      "Fixed System 2": 1,
+      "Arbiter": 1
+    },
+    {
+      "Scenario": "L3",
+      "No Control": 2,
+      "Fixed System 1": 2,
+      "Fixed System 2": 2,
+      "Arbiter": 2
+    },
+    {
+      "Scenario": "T1",
+      "No Control": 3,
+      "Fixed System 1": 3,
+      "Fixed System 2": 3,
+      "Arbiter": 3
+    },
+    {
+      "Scenario": "G1",
+      "No Control": 14,
+      "Fixed System 1": 9,
+      "Fixed System 2": 9,
+      "Arbiter": 9
+    },
+    {
+      "Scenario": "G2",
+      "No Control": 5,
+      "Fixed System 1": 5,
+      "Fixed System 2": 2,
+      "Arbiter": 2
+    }
+  ],
+  "reduction_summary": [
+    {
+      "Control mode": "No Control",
+      "Total violations across 6 scenarios": 29,
+      "Reduction vs No Control (%)": 0.0
+    },
+    {
+      "Control mode": "Fixed System 1",
+      "Total violations across 6 scenarios": 24,
+      "Reduction vs No Control (%)": 17.2
+    },
+    {
+      "Control mode": "Fixed System 2",
+      "Total violations across 6 scenarios": 18,
+      "Reduction vs No Control (%)": 37.9
+    },
+    {
+      "Control mode": "Arbiter",
+      "Total violations across 6 scenarios": 18,
+      "Reduction vs No Control (%)": 37.9
+    }
+  ],
+  "118bus_check": {
+    "118_arbiter_final_viol": 0,
+    "118_no_control_final_viol": 0,
+    "118_arbiter_final_mode": "s1"
+  },
+  "thresholds": {
+    "GREEN_MIN": 0.3,
+    "YELLOW_MIN": 0.15,
+    "RED_MIN": 0.05,
+    "EMERGENCY": 0.0
+  }
+}

@@ -1,0 +1,7 @@
+POI bus,Baseline HC (MW),After FACTS (MW),Increment (MW),Improvement (%),Baseline binding SOL,After binding SOL,N-1 valid after
+3,750,975,225,30.0,voltage,thermal,review
+8,600,650,50,8.3,thermal,thermal,review
+15,400,425,25,6.2,thermal,thermal,review
+20,0,0,0,0.0,thermal,thermal,review
+26,350,375,25,7.1,thermal,thermal,review
+32,0,25,25,0.0,thermal,thermal,review

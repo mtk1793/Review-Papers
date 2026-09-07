@@ -1,0 +1,67 @@
+{
+  "trajectory_rmse_pu": 0.001501620693662927,
+  "autoencoder_threshold": 1.88550490306625,
+  "binary_novelty_accuracy": 0.8143939393939394,
+  "binary_novelty_roc_auc": 0.9927083333333334,
+  "attribution_accuracy_overall": 0.6736111111111112,
+  "per_class_attr_acc": {
+    "1": 1.0,
+    "2": 1.0,
+    "3": 0.020833333333333332
+  },
+  "per_class_detection": {
+    "Correct": {
+      "precision": 0.7168674698795181,
+      "recall": 0.9916666666666667,
+      "f1": 0.8321678321678322,
+      "support": 120
+    },
+    "H error": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 48
+    },
+    "D error": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 48
+    },
+    "K_A error": {
+      "precision": 0.5,
+      "recall": 0.020833333333333332,
+      "f1": 0.04,
+      "support": 48
+    }
+  },
+  "confusion_matrix": [
+    [
+      119,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      48,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      48,
+      0
+    ],
+    [
+      47,
+      0,
+      0,
+      1
+    ]
+  ],
+  "n_events_total": 880,
+  "n_train": 616,
+  "n_test": 264
+}

@@ -1,0 +1,5 @@
+method,avg_viol_red_pct,avg_cost_per_hr,avg_actions,avg_solve_time_s
+dc_opf,71.43,96275.95,-1.0,0.01
+no_action,0.0,0.0,0.0,0.0
+qirl,40.91,646.86,3.43,
+rule_based,40.91,514.86,0.86,0.0381

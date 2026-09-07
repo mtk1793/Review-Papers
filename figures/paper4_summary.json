@@ -1,0 +1,10 @@
+{
+  "figures": [
+    "paper4_fig1_frequency_trajectory.png",
+    "paper4_fig2_nadir_vs_ibr.png",
+    "paper4_fig3_ufls_timeline.png",
+    "paper4_fig4_bess_effect.png"
+  ],
+  "scenarios_run": 40,
+  "pass_rate": 0.45
+}

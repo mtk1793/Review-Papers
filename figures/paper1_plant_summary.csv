@@ -1,0 +1,6 @@
+plant,ptype,plant_bus,n_events,n_fail,worst_event,avg_severity
+Solar-30,solar,30,12,5,E5_StuckBreaker_350ms,3.3336666666666663
+Solar-31,solar,31,12,5,E5_StuckBreaker_350ms,3.3336666666666663
+Wind-32,wind,32,12,5,E5_StuckBreaker_350ms,3.3336666666666663
+Wind-37,wind,37,12,5,E5_StuckBreaker_350ms,3.3336666666666663
+Wind-39,wind,39,12,5,E5_StuckBreaker_350ms,3.3336666666666663

@@ -1,0 +1,61 @@
+event,etype,description,plant,plant_bus,ptype,verdict,v_margin_pu,f_margin_hz,severity,fail_msg
+E1_POI_3ph_5cyc,lvrt,"3-phase POI fault, 5-cycle clearing",Wind-39,39,wind,PASS,0.0,0.0,0.332,
+E1_POI_3ph_5cyc,lvrt,"3-phase POI fault, 5-cycle clearing",Wind-32,32,wind,PASS,0.0,0.0,0.332,
+E1_POI_3ph_5cyc,lvrt,"3-phase POI fault, 5-cycle clearing",Solar-31,31,solar,PASS,0.0,0.0,0.332,
+E1_POI_3ph_5cyc,lvrt,"3-phase POI fault, 5-cycle clearing",Solar-30,30,solar,PASS,0.0,0.0,0.332,
+E1_POI_3ph_5cyc,lvrt,"3-phase POI fault, 5-cycle clearing",Wind-37,37,wind,PASS,0.0,0.0,0.332,
+E2_POI_3ph_9cyc,lvrt,"3-phase POI fault, 9-cycle clearing",Wind-39,39,wind,FAIL-LVRT,0.0303,0.0,5.752,t=0.249s V=0.149<min 0.180
+E2_POI_3ph_9cyc,lvrt,"3-phase POI fault, 9-cycle clearing",Wind-32,32,wind,FAIL-LVRT,0.0303,0.0,5.752,t=0.249s V=0.149<min 0.180
+E2_POI_3ph_9cyc,lvrt,"3-phase POI fault, 9-cycle clearing",Solar-31,31,solar,FAIL-LVRT,0.0303,0.0,5.752,t=0.249s V=0.149<min 0.180
+E2_POI_3ph_9cyc,lvrt,"3-phase POI fault, 9-cycle clearing",Solar-30,30,solar,FAIL-LVRT,0.0303,0.0,5.752,t=0.249s V=0.149<min 0.180
+E2_POI_3ph_9cyc,lvrt,"3-phase POI fault, 9-cycle clearing",Wind-37,37,wind,FAIL-LVRT,0.0303,0.0,5.752,t=0.249s V=0.149<min 0.180
+E3_POI_3ph_15cyc,lvrt,"3-phase POI fault, 15-cycle clearing",Wind-39,39,wind,FAIL-LVRT,0.0837,0.0,6.418,t=0.349s V=0.129<min 0.213
+E3_POI_3ph_15cyc,lvrt,"3-phase POI fault, 15-cycle clearing",Wind-32,32,wind,FAIL-LVRT,0.0837,0.0,6.418,t=0.349s V=0.129<min 0.213
+E3_POI_3ph_15cyc,lvrt,"3-phase POI fault, 15-cycle clearing",Solar-31,31,solar,FAIL-LVRT,0.0837,0.0,6.418,t=0.349s V=0.129<min 0.213
+E3_POI_3ph_15cyc,lvrt,"3-phase POI fault, 15-cycle clearing",Solar-30,30,solar,FAIL-LVRT,0.0837,0.0,6.418,t=0.349s V=0.129<min 0.213
+E3_POI_3ph_15cyc,lvrt,"3-phase POI fault, 15-cycle clearing",Wind-37,37,wind,FAIL-LVRT,0.0837,0.0,6.418,t=0.349s V=0.129<min 0.213
+E4_NearLine_3ph_5cyc,lvrt,"Adjacent line 3-phase fault, 5-cycle clearing",Wind-39,39,wind,PASS,0.0,0.0,0.332,
+E4_NearLine_3ph_5cyc,lvrt,"Adjacent line 3-phase fault, 5-cycle clearing",Wind-32,32,wind,PASS,0.0,0.0,0.332,
+E4_NearLine_3ph_5cyc,lvrt,"Adjacent line 3-phase fault, 5-cycle clearing",Solar-31,31,solar,PASS,0.0,0.0,0.332,
+E4_NearLine_3ph_5cyc,lvrt,"Adjacent line 3-phase fault, 5-cycle clearing",Solar-30,30,solar,PASS,0.0,0.0,0.332,
+E4_NearLine_3ph_5cyc,lvrt,"Adjacent line 3-phase fault, 5-cycle clearing",Wind-37,37,wind,PASS,0.0,0.0,0.332,
+E5_StuckBreaker_350ms,lvrt,Stuck breaker → delayed clearing 350 ms,Wind-39,39,wind,FAIL-LVRT,0.167,0.0,7.235,t=0.449s V=0.079<min 0.246
+E5_StuckBreaker_350ms,lvrt,Stuck breaker → delayed clearing 350 ms,Wind-32,32,wind,FAIL-LVRT,0.167,0.0,7.235,t=0.449s V=0.079<min 0.246
+E5_StuckBreaker_350ms,lvrt,Stuck breaker → delayed clearing 350 ms,Solar-31,31,solar,FAIL-LVRT,0.167,0.0,7.235,t=0.449s V=0.079<min 0.246
+E5_StuckBreaker_350ms,lvrt,Stuck breaker → delayed clearing 350 ms,Solar-30,30,solar,FAIL-LVRT,0.167,0.0,7.235,t=0.449s V=0.079<min 0.246
+E5_StuckBreaker_350ms,lvrt,Stuck breaker → delayed clearing 350 ms,Wind-37,37,wind,FAIL-LVRT,0.167,0.0,7.235,t=0.449s V=0.079<min 0.246
+E6_RemoteDelayed_500ms,lvrt,"Remote fault, delayed clearing 500 ms",Wind-39,39,wind,PASS,0.0,0.0,2.0,
+E6_RemoteDelayed_500ms,lvrt,"Remote fault, delayed clearing 500 ms",Wind-32,32,wind,PASS,0.0,0.0,2.0,
+E6_RemoteDelayed_500ms,lvrt,"Remote fault, delayed clearing 500 ms",Solar-31,31,solar,PASS,0.0,0.0,2.0,
+E6_RemoteDelayed_500ms,lvrt,"Remote fault, delayed clearing 500 ms",Solar-30,30,solar,PASS,0.0,0.0,2.0,
+E6_RemoteDelayed_500ms,lvrt,"Remote fault, delayed clearing 500 ms",Wind-37,37,wind,PASS,0.0,0.0,2.0,
+E7_LVRT_low_residual_150ms,lvrt,"POI 3-phase fault with residual V=0.05 pu, 150 ms",Wind-39,39,wind,FAIL-LVRT,0.093,0.0,6.065,t=0.249s V=0.087<min 0.180
+E7_LVRT_low_residual_150ms,lvrt,"POI 3-phase fault with residual V=0.05 pu, 150 ms",Wind-32,32,wind,FAIL-LVRT,0.093,0.0,6.065,t=0.249s V=0.087<min 0.180
+E7_LVRT_low_residual_150ms,lvrt,"POI 3-phase fault with residual V=0.05 pu, 150 ms",Solar-31,31,solar,FAIL-LVRT,0.093,0.0,6.065,t=0.249s V=0.087<min 0.180
+E7_LVRT_low_residual_150ms,lvrt,"POI 3-phase fault with residual V=0.05 pu, 150 ms",Solar-30,30,solar,FAIL-LVRT,0.093,0.0,6.065,t=0.249s V=0.087<min 0.180
+E7_LVRT_low_residual_150ms,lvrt,"POI 3-phase fault with residual V=0.05 pu, 150 ms",Wind-37,37,wind,FAIL-LVRT,0.093,0.0,6.065,t=0.249s V=0.087<min 0.180
+E8_HVRT_1p20_500ms,hVRT,Capacitor-bank switching overvoltage 1.20 pu for 500 ms,Wind-39,39,wind,PASS,0.0,0.0,1.8,
+E8_HVRT_1p20_500ms,hVRT,Capacitor-bank switching overvoltage 1.20 pu for 500 ms,Wind-32,32,wind,PASS,0.0,0.0,1.8,
+E8_HVRT_1p20_500ms,hVRT,Capacitor-bank switching overvoltage 1.20 pu for 500 ms,Solar-31,31,solar,PASS,0.0,0.0,1.8,
+E8_HVRT_1p20_500ms,hVRT,Capacitor-bank switching overvoltage 1.20 pu for 500 ms,Solar-30,30,solar,PASS,0.0,0.0,1.8,
+E8_HVRT_1p20_500ms,hVRT,Capacitor-bank switching overvoltage 1.20 pu for 500 ms,Wind-37,37,wind,PASS,0.0,0.0,1.8,
+E9_HVRT_1p30_200ms,hVRT,Light-load overvoltage 1.30 pu for 200 ms,Wind-39,39,wind,FAIL-HVRT,0.1,0.0,5.67,t=0.161s V=1.300>max 1.200
+E9_HVRT_1p30_200ms,hVRT,Light-load overvoltage 1.30 pu for 200 ms,Wind-32,32,wind,FAIL-HVRT,0.1,0.0,5.67,t=0.161s V=1.300>max 1.200
+E9_HVRT_1p30_200ms,hVRT,Light-load overvoltage 1.30 pu for 200 ms,Solar-31,31,solar,FAIL-HVRT,0.1,0.0,5.67,t=0.161s V=1.300>max 1.200
+E9_HVRT_1p30_200ms,hVRT,Light-load overvoltage 1.30 pu for 200 ms,Solar-30,30,solar,FAIL-HVRT,0.1,0.0,5.67,t=0.161s V=1.300>max 1.200
+E9_HVRT_1p30_200ms,hVRT,Light-load overvoltage 1.30 pu for 200 ms,Wind-37,37,wind,FAIL-HVRT,0.1,0.0,5.67,t=0.161s V=1.300>max 1.200
+E10_UF_ramp_57p5,ufrt,Under-frequency ramp 60→57.5 Hz over 5 s (gen trip),Wind-39,39,wind,PASS,0.0,0.0,1.6,
+E10_UF_ramp_57p5,ufrt,Under-frequency ramp 60→57.5 Hz over 5 s (gen trip),Wind-32,32,wind,PASS,0.0,0.0,1.6,
+E10_UF_ramp_57p5,ufrt,Under-frequency ramp 60→57.5 Hz over 5 s (gen trip),Solar-31,31,solar,PASS,0.0,0.0,1.6,
+E10_UF_ramp_57p5,ufrt,Under-frequency ramp 60→57.5 Hz over 5 s (gen trip),Solar-30,30,solar,PASS,0.0,0.0,1.6,
+E10_UF_ramp_57p5,ufrt,Under-frequency ramp 60→57.5 Hz over 5 s (gen trip),Wind-37,37,wind,PASS,0.0,0.0,1.6,
+E11_OF_ramp_62p0,ofrt,Over-frequency ramp 60→62.0 Hz over 3 s (load rejection),Wind-39,39,wind,PASS,0.0,0.0,1.4,
+E11_OF_ramp_62p0,ofrt,Over-frequency ramp 60→62.0 Hz over 3 s (load rejection),Wind-32,32,wind,PASS,0.0,0.0,1.4,
+E11_OF_ramp_62p0,ofrt,Over-frequency ramp 60→62.0 Hz over 3 s (load rejection),Solar-31,31,solar,PASS,0.0,0.0,1.4,
+E11_OF_ramp_62p0,ofrt,Over-frequency ramp 60→62.0 Hz over 3 s (load rejection),Solar-30,30,solar,PASS,0.0,0.0,1.4,
+E11_OF_ramp_62p0,ofrt,Over-frequency ramp 60→62.0 Hz over 3 s (load rejection),Wind-37,37,wind,PASS,0.0,0.0,1.4,
+E12_OF_ramp_63p0,ofrt,Severe over-frequency 60→63.0 Hz (large load rejection),Wind-39,39,wind,PASS,0.0,0.0,1.4,
+E12_OF_ramp_63p0,ofrt,Severe over-frequency 60→63.0 Hz (large load rejection),Wind-32,32,wind,PASS,0.0,0.0,1.4,
+E12_OF_ramp_63p0,ofrt,Severe over-frequency 60→63.0 Hz (large load rejection),Solar-31,31,solar,PASS,0.0,0.0,1.4,
+E12_OF_ramp_63p0,ofrt,Severe over-frequency 60→63.0 Hz (large load rejection),Solar-30,30,solar,PASS,0.0,0.0,1.4,
+E12_OF_ramp_63p0,ofrt,Severe over-frequency 60→63.0 Hz (large load rejection),Wind-37,37,wind,PASS,0.0,0.0,1.4,

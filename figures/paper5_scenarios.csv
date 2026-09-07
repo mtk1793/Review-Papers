@@ -1,0 +1,5 @@
+Target,Magnitude,Location,Duration
+Voltage magnitude,0.02-0.10 pu,Random 5% of buses,1-10 snapshots
+Line flow (MW),5-30% of true flow,Random 5% of branches,1-5 snapshots
+Relay pickup (A),-5% to -40% of setting,Random 5% of relays,Until detected
+Breaker status,False open (1->0),Random 1 branch,1 snapshot

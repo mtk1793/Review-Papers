@@ -1,0 +1,5 @@
+Control mode,Total violations across 6 scenarios,Reduction vs No Control (%)
+No Control,29,0.0
+Fixed System 1,24,17.2
+Fixed System 2,18,37.9
+Arbiter,18,37.9

@@ -1,0 +1,7 @@
+Scenario,No Control,Fixed System 1,Fixed System 2,Arbiter
+L1,1,1,1,1
+L2,4,4,1,1
+L3,2,2,2,2
+T1,3,3,3,3
+G1,14,9,9,9
+G2,5,5,2,2

@@ -1,0 +1,8 @@
+event,desc,pre_qirl_over_mw,post_qirl_over_mw,post_rb_over_mw,post_opf_over_mw,qirl_actions
+P1,"Loss of 138 kV line 11-12 (light, planned outage)",0.0,0.0,0.0,1.9895196601282805e-13,noop
+P2,Loss of 138 kV line 17-31 (single-line trip),0.0,0.0,0.0,0.0,noop
+P3,Loss of 138 kV line 25-27 (severe single-line),30.335859877740546,28.42973733269224,28.42973733269224,6.679101716144942e-13,"phase_k7_5.0, phase_k7_5.0, phase_k7_5.0, phase_k7_5.0, phase_k7_5.0, phase_k7_5.0"
+P4,Loss of 345 kV line 38-65 (major inter-tie),59.5769147785668,11.858966380142505,11.858966380142505,1.5631940186722204e-13,"redis_g27_-75.0, phase_k7_5.0, noop, noop, noop, noop"
+P5,Loss of 345 kV line 49-66 (heavy inter-tie),2.0396695993782714,0.0,0.0,1.2789769243681803e-13,redis_g39_-75.0
+P6,Loss of 138 kV line 69-77 (radial supply),14.600000000000193,14.600000000000193,14.600000000000193,5.684341886080802e-14,"phase_k7_5.0, phase_k7_5.0, phase_k7_5.0, phase_k7_5.0, phase_k7_5.0, phase_k7_5.0"
+P7,Loss of 345 kV line 80-96 (load-pocket),7.316794435409747,0.0,0.0,7.247535904753022e-13,"phase_k7_5.0, redis_g4_-75.0, compound_g29_g4_+75_-75"

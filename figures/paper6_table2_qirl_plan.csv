@@ -1,0 +1,6 @@
+Device,Bus/branch,Rating (MVar),Cost ($M)
+UPFC,L46,150,33.0
+TCSC,L27,50,6.0
+SVC,B32,50,5.0
+TCSC,L20,50,6.0
+TOTAL,,300,50.0

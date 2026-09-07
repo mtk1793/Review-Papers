@@ -1,0 +1,15 @@
+Parameter,Value,Notes
+Test system,IEEE 118-bus,118 buses / 54 generators / 186 branches
+Renewable penetration target,40 %,Energy penetration over the year
+Candidate POIs,6 buses,Buses 5 30 50 75 90 100
+Wind sites,5 buses,200 MW nameplate per site (1000 MW total)
+Solar sites,5 buses,100 MW nameplate per site (500 MW total)
+Voltage SOL,0.94 - 1.06 pu,Aligned with case118 Vmin Vmax
+Thermal SOL,100 % of RATE_A,Headroom factor 4x base flow min 200 MVA
+OPSD year,2017,Fixed seed 20260908 for reproducibility
+OPSD samples,8760 hours,1 year hourly resolution
+QSTS sampled hours,120,Stratified every 73rd hour
+Monte-Carlo samples per hour,30,Log-normal perturbations
+Total records,21600,6 POIs x 120 h x 30 MC
+Perturbation for sensitivity,+50 MW,Linearized hosting capacity
+Outage probability,2 %,N-1 branch outage per MC sample

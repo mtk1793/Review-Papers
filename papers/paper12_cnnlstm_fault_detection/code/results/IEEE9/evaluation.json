@@ -1,0 +1,136 @@
+{
+  "n_samples": 210,
+  "accuracy": 14.29,
+  "accuracy_ci_95": [
+    9.52,
+    19.52
+  ],
+  "per_class": {
+    "Low-impedance": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "High-impedance": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "Freq-deviation": {
+      "accuracy": 1.0,
+      "precision": 0.1429,
+      "recall": 1.0,
+      "f1": 0.25
+    },
+    "Voltage-sag": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "Islanding": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "FDI-attack": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "Load-transient": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  },
+  "latency_ms": {
+    "mean_ms": 0.45,
+    "std_ms": 0.1,
+    "min_ms": 0.37,
+    "max_ms": 0.69,
+    "p10_ms": 0.37,
+    "p50_ms": 0.38,
+    "p95_ms": 0.69,
+    "p99_ms": 0.69
+  },
+  "confusion_matrix": [
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "fault_names": [
+    "Low-impedance",
+    "High-impedance",
+    "Freq-deviation",
+    "Voltage-sag",
+    "Islanding",
+    "FDI-attack",
+    "Load-transient"
+  ]
+}

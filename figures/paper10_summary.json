@@ -1,0 +1,110 @@
+{
+  "configs": [
+    "IEEE39",
+    "IEEE118"
+  ],
+  "results": {
+    "IEEE39": {
+      "n_samples_total": 5000,
+      "n_clean": 4434,
+      "n_features": 54,
+      "n_relays": 10,
+      "n_test_samples": 887,
+      "overall_r2": 0.6541866790029273,
+      "overall_mape": 87.07561934024278,
+      "overall_smape": 42.26969376993599,
+      "overall_rmse": 0.1474627556400009,
+      "train_time_s": 2.0439133644104004,
+      "pinn_inference_ms": 0.0016360282897949219,
+      "pf_inference_ms": 12.575939893722534,
+      "speedup": 7686.871903235208,
+      "violation_tp": 367,
+      "violation_fp": 151,
+      "violation_fn": 410,
+      "violation_tn": 7942,
+      "violation_precision": 0.7084942084942085,
+      "violation_recall": 0.4723294723294723,
+      "violation_f1": 0.5667953667953668,
+      "n_test_violations_true": 777,
+      "n_test_violations_pred": 518,
+      "top_indices": [
+        8,
+        12,
+        17,
+        18,
+        22,
+        24,
+        27,
+        34,
+        37,
+        44
+      ],
+      "crit_ratings": [
+        500.0,
+        480.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        900.0,
+        600.0,
+        600.0
+      ]
+    },
+    "IEEE118": {
+      "n_samples_total": 2000,
+      "n_clean": 1954,
+      "n_features": 195,
+      "n_relays": 10,
+      "n_test_samples": 391,
+      "overall_r2": -0.18488695174412553,
+      "overall_mape": 56.78889453323738,
+      "overall_smape": 27.05167356756241,
+      "overall_rmse": 0.1479767495205933,
+      "train_time_s": 14.913006782531738,
+      "pinn_inference_ms": 0.026212215423583984,
+      "pf_inference_ms": 29.414238929748535,
+      "speedup": 1122.1576831420202,
+      "violation_tp": 2,
+      "violation_fp": 10,
+      "violation_fn": 22,
+      "violation_tn": 3876,
+      "violation_precision": 0.16666666666666666,
+      "violation_recall": 0.08333333333333333,
+      "violation_f1": 0.1111111111111111,
+      "n_test_violations_true": 24,
+      "n_test_violations_pred": 12,
+      "top_indices": [
+        6,
+        7,
+        8,
+        35,
+        37,
+        50,
+        95,
+        96,
+        140,
+        182
+      ],
+      "crit_ratings": [
+        594.5828946851184,
+        478.94137815805783,
+        589.7015802936756,
+        333.93403592567245,
+        301.20553056275,
+        359.1549651491244,
+        257.2848123006477,
+        262.8620681355801,
+        272.01828895752396,
+        264.43410252881836
+      ]
+    }
+  },
+  "constants": {
+    "emergency_rating_scale": 1.15,
+    "heatmap_threshold": 0.0,
+    "random_seed": 20260908,
+    "mlp_architecture": "128-64-32 ReLU, Adam, alpha=1e-4, max_iter=500"
+  }
+}

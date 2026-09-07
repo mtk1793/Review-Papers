@@ -1,0 +1,7 @@
+Scenario,Type,Element,Duration (h),Pre-outage loading (%),Rating (MVA),Description
+L1,Line outage,2-3,8.0,94.7,500.0,Line 2-3 (heavily loaded east-west corridor)
+L2,Line outage,5-6,8.0,66.6,1200.0,"Line 5-6 (major east-west tie, 1200 MVA rating)"
+L3,Line outage,10-13,8.0,79.9,600.0,Line 10-13 (load-supply feeder to bus 13)
+T1,Transformer outage,6-11,8.0,99.6,480.0,"Transformer 6-11 (step-down to bus 11 subnetwork, 480 MVA)"
+G1,Generator outage,Gen@bus38,8.0,100.8,865.0,"Generator at bus 38 (830 MW, mixed voltage+thermal impact)"
+G2,Generator outage,Gen@bus35,8.0,99.3,687.0,"Generator at bus 35 (650 MW, near voltage limit)"
