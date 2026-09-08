@@ -1,0 +1,17 @@
+# CAPSM Stage-1 simulation — pinned dependencies
+#
+# Verified working set as of 2026-09-07. Reinstall with:
+#     python -m pip install -r requirements.txt
+# (CPU-only torch is pulled from the PyTorch CPU wheel index — see pyproject.toml
+#  or install separately with: pip install torch --index-url https://download.pytorch.org/whl/cpu)
+
+PYPOWER==5.1.21
+numpy==2.1.3
+pandas==2.2.3
+scipy==1.14.1
+scikit-learn==1.5.2
+torch==2.14.0
+matplotlib==3.9.2
+requests==2.32.3
+pytest==9.0.2
+pyarrow==25.0.1

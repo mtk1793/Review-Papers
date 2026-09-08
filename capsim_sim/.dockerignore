@@ -1,0 +1,62 @@
+# Build artifacts
+build/
+dist/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Local caches that shouldn't travel into the image
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# The 242 MB OPSD data files — the Dockerfile's named volume `capsim-opspd-data`
+# is the canonical place for these inside the container; if they're sitting on
+# the host, they'll be downloaded inside the container on first run anyway.
+capsim_sim/data/raw/time_series_*.csv
+capsim_sim/data/processed/
+
+# Large per-run outputs (results are produced inside the container and
+# mounted out via -v; don't bake the host's runs into the image)
+capsim_sim/results/phase*/qsts_case*.csv
+capsim_sim/results/phase*/case39_*.csv
+capsim_sim/results/phase*/system1_cnnlstm.pt
+
+# Thesis artifacts are auto-generated inside the container
+capsim_sim/thesis_artifacts/
+
+# This very Dockerfile + compose file DO need to ship
+!capsim_sim/Dockerfile
+!capsim_sim/docker-compose.yml
+!capsim_sim/.dockerignore
+
+# Docs that don't help the runtime
+*.md
+!capsim_sim/README.md
+!capsim_sim/CHANGELOG.md
+LICENSE
+CITATION.cff
+CODE_OF_CONDUCT.md
+
+# Thesis chapter PDFs (HIL_Project, Chapter 1 .. 13) — they live at the
+# repo root, not under capsim_sim/, but be defensive in case of a future
+# reorganisation
+Chapter*/
+HIL_Project/
+notebooklm_outputs/

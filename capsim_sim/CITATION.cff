@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software or the CAPSM framework in your research, please cite both the software and the underlying thesis."
+title: "CAPSM: Cognitive Adaptive Power System Management — Stage-1 Offline Validation on Real OPSD Data"
+abstract: >
+  Brain-inspired, dual-process AI architecture for real-time control of
+  modern power grids with high renewable penetration, FACTS devices, and
+  electric-vehicle V2G fleets. System 1 is a CNN-LSTM reflexive controller
+  (<5 ms); System 2 is a Quantum-Inspired RL deliberative controller
+  (<50 ms); a metacognitive arbiter blends the two based on system stress.
+  Validated end-to-end on real measured grid data from the Open Power
+  System Data (OPSD) platform over IEEE 9/14/39/118-bus test systems.
+authors:
+  - family-names: Kiasari
+    given-names: Mahmoud
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+    email: mahmoud.kiasari@dal.ca
+    affiliation: "Department of Electrical and Computer Engineering, Dalhousie University, Halifax, Canada"
+keywords:
+  - power systems
+  - reinforcement learning
+  - CNN-LSTM
+  - quantum-inspired reinforcement learning
+  - QIRL
+  - FACTS devices
+  - vehicle-to-grid
+  - V2G
+  - Open Power System Data
+  - OPSD
+  - smart grid
+  - metacognitive control
+  - dual-process architecture
+date-released: "2025-09-07"
+version: "1.0.0"
+license: MIT
+repository-code: "https://github.com/mtk1793/PhD-Thesis"
+url: "https://github.com/mtk1793/PhD-Thesis/tree/main/capsim_sim"
+preferred-citation:
+  type: thesis
+  title: "CAPSM: Cognitive Adaptive Power System Management — A Brain-Inspired Dual-Process Architecture for Modern Grid Control"
+  authors:
+    - family-names: Kiasari
+      given-names: Mahmoud
+  year: 2025
+  institution:
+    name: "Dalhousie University, Department of Electrical and Computer Engineering"
+    address: "Halifax, NS, Canada"
+  thesis-type: "PhD Thesis (in preparation)"

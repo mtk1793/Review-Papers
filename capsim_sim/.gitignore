@@ -1,0 +1,45 @@
+# Top-level .gitignore for the PhD-Thesis monorepo
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.code-workspace
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
+env/
+.python-version
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Build artifacts ---
+build/
+dist/
+*.whl
+
+# --- Environment / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Generated large outputs ---
+*.parquet
