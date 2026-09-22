@@ -4,7 +4,7 @@ Paper 3 docx assembly script
 Builds the Word document for:
 
     Event-Based Model Validation for NERC MOD-026-2 and MOD-033
-    Using Physics-Informed CNN-LSTM and Simulated PMU Data
+    Using a Physics-Informed CNN-LSTM Surrogate and Simulated PMU Data
 
 Inputs (already produced by paper3_cnnlstm_model_validation.py):
   - figures/paper3_fig1_trajectory_overlay.png
@@ -38,8 +38,10 @@ from docx.oxml import OxmlElement
 # ----------------------------------------------------------------------
 # Paths
 # ----------------------------------------------------------------------
-FIG_DIR = Path("/home/z/my-project/download/figures")
-PAP_DIR = Path("/home/z/my-project/download/papers")
+REPO_ROOT = Path(__file__).resolve().parents[1]
+FIG_DIR = REPO_ROOT / "figures"
+PAP_DIR = REPO_ROOT / "papers"
+PAP_DIR.mkdir(parents=True, exist_ok=True)
 OUT_DOCX = PAP_DIR / "CNNLSTM_ModelValidation_MOD026_AcademicPaper_2026-09-08.docx"
 
 FIG1 = FIG_DIR / "paper3_fig1_trajectory_overlay.png"
@@ -52,7 +54,7 @@ METRICS_CSV  = FIG_DIR / "paper3_metrics_by_class.csv"
 SCEN_CSV     = FIG_DIR / "paper3_scenarios.csv"
 ATTR_CSV     = FIG_DIR / "paper3_attribution.csv"
 
-SRC_SCRIPT = Path("/home/z/my-project/download/scripts/paper3_cnnlstm_model_validation.py")
+SRC_SCRIPT = REPO_ROOT / "scripts" / "paper3_cnnlstm_model_validation.py"
 
 
 # ----------------------------------------------------------------------
@@ -248,7 +250,7 @@ def add_table(df: pd.DataFrame, caption: str, col_widths_in: list[float] | None 
 # ----------------------------------------------------------------------
 add_centered(
     "Event-Based Model Validation for NERC MOD-026-2 and MOD-033 "
-    "Using Physics-Informed CNN-LSTM and Simulated PMU Data",
+    "Using a Physics-Informed CNN-LSTM Surrogate and Simulated PMU Data",
     italic=False, size=16, bold=True,
 )
 doc.add_paragraph()
@@ -270,7 +272,7 @@ abstract = (
     "data, but the comparison is still predominantly performed by visual "
     "inspection of simulated and recorded trajectories. We propose an "
     "automated, interpretable discrepancy-detection pipeline that pairs "
-    "a physics-informed CNN-LSTM trajectory predictor with an autoencoder-"
+    "a physics-informed CNN-LSTM-equivalent trajectory surrogate with an autoencoder-"
     "based novelty detector and a sensitivity-trained attribution head. "
     "Because the sandbox used in this study does not include PyTorch, "
     "the CNN-LSTM is implemented as an sklearn MLPRegressor trained on "
@@ -291,11 +293,15 @@ abstract = (
     f"{summary['attribution_accuracy_overall']:.3f} on flagged cases, "
     "with perfect detection of H and D errors but a known weakness on "
     "K_A errors that we trace to the small voltage-recovery signature "
-    "of the slow-AVR configuration used in this study. The pipeline "
+    "of the slow-AVR configuration used in this study. A repo-level "
+    "PMU CSV schema is included to support replacement of the synthetic "
+    "event generator by recorded PMU events when matched simulation and "
+    "parameter-label metadata are available. The pipeline "
     "demonstrates that an automated mismatch detector can support MOD-"
     "026-2 and MOD-033 compliance workflows while preserving engineering "
     "interpretability, and we discuss concrete next steps for field "
-    "deployment on real PMU data."
+    "deployment on real PMU data without over-claiming field validation "
+    "from the synthetic benchmark alone."
 )
 p = doc.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -1153,11 +1159,11 @@ add_para(
 )
 
 add_para(
-    "To reproduce the results, run the two scripts in sequence: "
-    "`python paper3_cnnlstm_model_validation.py` produces the figures "
-    "and tables under /home/z/my-project/download/figures/, and "
-    "`python paper3_assemble_docx.py` produces the Word document at "
-    "/home/z/my-project/download/papers/"
+    "To reproduce the results from a repository clone, run the two scripts "
+    "in sequence from the repository root: `python scripts/"
+    "paper3_cnnlstm_model_validation.py` produces the figures and tables "
+    "under figures/, and `python scripts/paper3_assemble_docx.py` "
+    "produces the Word document at papers/"
     "CNNLSTM_ModelValidation_MOD026_AcademicPaper_2026-09-08.docx. "
     "The expected wall-clock time for the simulation script is "
     "approximately 90 s on a single CPU core; the assembly script "
@@ -1168,8 +1174,8 @@ add_para(
 add_para(
     "The dependencies required to run the pipeline are: numpy, pandas, "
     "scipy, scikit-learn, matplotlib, and python-docx. The full "
-    "requirements list is available in /home/z/my-project/download/"
-    "requirements.txt. The figures, CSV summaries, and JSON summary "
+    "requirements list is available in requirements.txt. The figures, "
+    "CSV summaries, and JSON summary "
     "are the only artifacts required by the assembly script; the "
     "Python source of paper3_cnnlstm_model_validation.py is reproduced "
     "in Appendix B for completeness."

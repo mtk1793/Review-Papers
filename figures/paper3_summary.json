@@ -1,8 +1,8 @@
 {
-  "trajectory_rmse_pu": 0.001501620693662927,
-  "autoencoder_threshold": 1.88550490306625,
+  "trajectory_rmse_pu": 0.0006475336386032646,
+  "autoencoder_threshold": 1.4359919343891723,
   "binary_novelty_accuracy": 0.8143939393939394,
-  "binary_novelty_roc_auc": 0.9927083333333334,
+  "binary_novelty_roc_auc": 0.9828703703703703,
   "attribution_accuracy_overall": 0.6736111111111112,
   "per_class_attr_acc": {
     "1": 1.0,

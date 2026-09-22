@@ -10,7 +10,7 @@
 |---|-------|---------------|-------------|
 | 1 | PRC-029-1 Ride-Through Verification | PRC-029-1, FAC-002-4, TPL-001-5.1 | IEEE 39-bus |
 | 2 | Metacognitive RL for Corrective Actions | TPL-001-5.1, FAC-014-3 | IEEE 118-bus |
-| 3 | CNN-LSTM Model Validation (MOD-026-2) | MOD-026-2, MOD-033, MOD-032-1 | IEEE 39/118-bus |
+| 3 | CNN-LSTM-Surrogate Model Validation (MOD-026-2) | MOD-026-2, MOD-033, MOD-032-1 | Two-machine synthetic PMU benchmark + real-PMU CSV schema |
 | 4 | UFLS Adequacy with High IBR | PRC-006-5, PRC-006-NPCC-2, MOD-027 | IEEE 39/118-bus |
 | 5 | False Data Injection Detection | PRC-023-6, PRC-026-2, CIP-003/005 | IEEE 39/118-bus |
 | 6 | FACTS Hosting Capacity | FAC-002-4, FAC-014-3, TPL-001-5.1 | IEEE 39/118-bus |
@@ -99,7 +99,7 @@ Review-Papers/
 
 ## Key Technical Notes
 
-**Test Systems**: Papers 1-10 use IEEE 39-bus or 118-bus via `pypower`. Paper 12 uses IEEE 9/39/118-bus with synthetic PMU data.
+**Test Systems**: Papers 1-2 and 4-10 use IEEE 39-bus or 118-bus via `pypower`. Paper 3 currently uses a reproducible two-machine synthetic PMU benchmark plus `data/real_pmu/` for recorded PMU CSV ingestion. Paper 12 uses IEEE 9/39/118-bus with synthetic PMU data.
 
 **ML Substitutions**: Where the CAPSM thesis uses PyTorch, papers 1-10 use `sklearn` surrogates (MLPRegressor for CNN-LSTM/PINN). Paper 12 uses full PyTorch CNN-LSTM.
 

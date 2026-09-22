@@ -29,10 +29,10 @@ Date  : 2026-09-08
 
 from __future__ import annotations
 
-import os
 import json
 import warnings
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Tuple, Dict, List
 
 import numpy as np
@@ -59,8 +59,9 @@ warnings.filterwarnings("ignore")
 # ----------------------------------------------------------------------
 # 0.  Output paths
 # ----------------------------------------------------------------------
-FIG_DIR = "/home/z/my-project/download/figures"
-os.makedirs(FIG_DIR, exist_ok=True)
+REPO_ROOT = Path(__file__).resolve().parents[1]
+FIG_DIR = REPO_ROOT / "figures"
+FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 RNG_SEED = 20260908
 np.random.seed(RNG_SEED)
@@ -406,8 +407,7 @@ def train_sensitivity_classifier(X_tr: np.ndarray, lab_tr: np.ndarray):
     dev = X_tr - centroid_correct
     clf = LogisticRegression(
         max_iter=2000, class_weight="balanced",
-        C=1.0, multi_class="multinomial",
-        solver="lbfgs", random_state=RNG_SEED,
+        C=1.0, solver="lbfgs", random_state=RNG_SEED,
     )
     clf.fit(dev, lab_tr)
     return clf, centroid_correct
@@ -668,15 +668,15 @@ def main():
     traj_err = simulate_event(p_err, ev_demo, t_end=2.5, fs=120.0)
     fig_trajectory_overlay(traj_nom["t"], traj_nom["V"], traj_err["V"],
                            ev_demo["t_event"],
-                           os.path.join(FIG_DIR, "paper3_fig1_trajectory_overlay.png"))
+                            FIG_DIR / "paper3_fig1_trajectory_overlay.png")
 
     # Figure 2: AE histogram
     fig_ae_histogram(err_correct, err_wrong, thr,
-                     os.path.join(FIG_DIR, "paper3_fig2_ae_histogram.png"))
+                     FIG_DIR / "paper3_fig2_ae_histogram.png")
 
     # Figure 3: confusion matrix
     fig_confusion(cm_disp, classes,
-                  os.path.join(FIG_DIR, "paper3_fig3_confusion_matrix.png"))
+                  FIG_DIR / "paper3_fig3_confusion_matrix.png")
 
     # Figure 4: sensitivity heatmap (mean sensitivity per true class)
     mean_scores = {}
@@ -684,7 +684,7 @@ def main():
         mean_scores[tl] = {c: float(np.mean(sens_scores_by_true[tl][c]))
                            for c in (1, 2, 3)}
     fig_sensitivity_heatmap(mean_scores,
-                            os.path.join(FIG_DIR, "paper3_fig4_sensitivity_heatmap.png"))
+                            FIG_DIR / "paper3_fig4_sensitivity_heatmap.png")
 
     print("  Saved 4 PNGs to", FIG_DIR)
 
@@ -707,7 +707,7 @@ def main():
         "n_train": int(len(idx_tr)),
         "n_test": int(len(idx_te)),
     }
-    with open(os.path.join(FIG_DIR, "paper3_summary.json"), "w") as f:
+    with open(FIG_DIR / "paper3_summary.json", "w") as f:
         json.dump(summary, f, indent=2)
     print("  Saved paper3_summary.json")
 
@@ -728,10 +728,10 @@ def main():
                      int((meta.K_A == 260.0).sum()),
                      int((meta.K_A == 140.0).sum())],
     })
-    scen_df.to_csv(os.path.join(FIG_DIR, "paper3_scenarios.csv"), index=False)
+    scen_df.to_csv(FIG_DIR / "paper3_scenarios.csv", index=False)
 
     # metrics-by-class table
-    df_metrics.to_csv(os.path.join(FIG_DIR, "paper3_metrics_by_class.csv"), index=False)
+    df_metrics.to_csv(FIG_DIR / "paper3_metrics_by_class.csv", index=False)
 
     # attribution table
     attr_rows = [["H error",  per_class_acc[1]],
@@ -739,7 +739,7 @@ def main():
                  ["K_A error", per_class_acc[3]],
                  ["Overall",  attr_acc]]
     pd.DataFrame(attr_rows, columns=["Class", "Attribution accuracy"]).to_csv(
-        os.path.join(FIG_DIR, "paper3_attribution.csv"), index=False)
+        FIG_DIR / "paper3_attribution.csv", index=False)
 
     print("\n" + "=" * 70)
     print("DONE - summary metrics:")
