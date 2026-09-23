@@ -1,0 +1,21 @@
+{
+  "source_dataset": "LBNL PMU Event Library",
+  "source_url": "https://github.com/LBNL-ETA/pmu_event_library",
+  "citation": "Swenson, T., Vrettos, E., Mueller, J., and Gehbauer, C., Open PMU Event Dataset: Detection and Characterization at LBNL Campus, IEEE PES General Meeting, 2019.",
+  "n_rows": 9097,
+  "n_events": 30,
+  "n_pmu_event_pairs": 65,
+  "n_buses": 3,
+  "event_type_counts": {
+    "pmu_event": 8,
+    "voltage_sag": 57
+  },
+  "samples_per_pmu_event_min": 131,
+  "samples_per_pmu_event_median": 135.0,
+  "samples_per_pmu_event_max": 200,
+  "voltage_pu_min": 0.29555971813797216,
+  "voltage_pu_mean": 0.986329852408593,
+  "voltage_pu_max": 1.0163528482011834,
+  "frequency_channel_available": false,
+  "mod026_parameter_labels_available": false
+}

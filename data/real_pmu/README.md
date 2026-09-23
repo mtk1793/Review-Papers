@@ -2,6 +2,8 @@
 
 Paper 3 uses a synthetic PMU benchmark because public disturbance archives rarely include all three items needed for supervised MOD-026-2/MOD-033 attribution: synchronized PMU traces, the matched dynamic simulation trace, and verified parameter-error labels. This directory defines the drop-in CSV contract for replacing the synthetic generator with recorded PMU events when those metadata are available from openPDC, openHistorian, utility archives, or lab PMU streams.
 
+The repository also includes a converter for the real LBNL PMU Event Library. That archive provides real distribution-PMU voltage/current phasor events and sag/swell morphology, but it does not provide MOD-026 generator/exciter parameter-error labels. Therefore it is used for real-data ingestion and morphology validation, not supervised H/D/K_A attribution.
+
 ## Required CSV Columns
 
 Each row is one time sample for one event and one PMU channel set.
@@ -28,6 +30,30 @@ These columns enable direct use in the attribution benchmark.
 | `sim_angle_deg` | float | Matched simulation angle. |
 | `label` | int | `0=correct`, `1=H error`, `2=D error`, `3=K_A error`. |
 | `parameter_error` | string | Human-readable label such as `correct`, `H+20%`, or `K_A-30%`. |
+| `source_dataset` | string | Source archive name, for example `LBNL PMU Event Library`. |
+| `source_voltage_channel` | string | Original voltage channel used by a converter, when applicable. |
+
+## LBNL PMU Event Library
+
+Clone the external archive outside this repository:
+
+```bash
+git clone https://github.com/LBNL-ETA/pmu_event_library.git /tmp/pmu_event_library
+```
+
+Then run:
+
+```bash
+python scripts/paper3_lbnl_real_pmu_summary.py /tmp/pmu_event_library
+```
+
+This writes:
+
+- `figures/paper3_lbnl_real_pmu_summary.json`
+- `figures/paper3_fig5_lbnl_real_pmu_summary.png`
+- `data/real_pmu/lbnl_sample_normalized.csv`
+
+The raw LBNL archive is not vendored here. Cite: Swenson, Vrettos, Mueller, and Gehbauer, "Open PMU Event Dataset: Detection and Characterization at LBNL Campus," IEEE PES General Meeting, 2019.
 
 ## Validation
 

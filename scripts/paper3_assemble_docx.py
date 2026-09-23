@@ -11,7 +11,9 @@ Inputs (already produced by paper3_cnnlstm_model_validation.py):
   - figures/paper3_fig2_ae_histogram.png
   - figures/paper3_fig3_confusion_matrix.png
   - figures/paper3_fig4_sensitivity_heatmap.png
+  - figures/paper3_fig5_lbnl_real_pmu_summary.png (optional real-PMU case study)
   - figures/paper3_summary.json
+  - figures/paper3_lbnl_real_pmu_summary.json (optional real-PMU case study)
   - figures/paper3_metrics_by_class.csv
   - figures/paper3_scenarios.csv
   - figures/paper3_attribution.csv
@@ -48,8 +50,10 @@ FIG1 = FIG_DIR / "paper3_fig1_trajectory_overlay.png"
 FIG2 = FIG_DIR / "paper3_fig2_ae_histogram.png"
 FIG3 = FIG_DIR / "paper3_fig3_confusion_matrix.png"
 FIG4 = FIG_DIR / "paper3_fig4_sensitivity_heatmap.png"
+FIG5 = FIG_DIR / "paper3_fig5_lbnl_real_pmu_summary.png"
 
 SUMMARY_JSON = FIG_DIR / "paper3_summary.json"
+LBNL_SUMMARY_JSON = FIG_DIR / "paper3_lbnl_real_pmu_summary.json"
 METRICS_CSV  = FIG_DIR / "paper3_metrics_by_class.csv"
 SCEN_CSV     = FIG_DIR / "paper3_scenarios.csv"
 ATTR_CSV     = FIG_DIR / "paper3_attribution.csv"
@@ -62,6 +66,12 @@ SRC_SCRIPT = REPO_ROOT / "scripts" / "paper3_cnnlstm_model_validation.py"
 # ----------------------------------------------------------------------
 with open(SUMMARY_JSON, "r") as f:
     summary = json.load(f)
+
+if LBNL_SUMMARY_JSON.exists():
+    with open(LBNL_SUMMARY_JSON, "r") as f:
+        lbnl_summary = json.load(f)
+else:
+    lbnl_summary = None
 
 df_scen   = pd.read_csv(SCEN_CSV)
 df_metrics = pd.read_csv(METRICS_CSV)
@@ -296,12 +306,15 @@ abstract = (
     "of the slow-AVR configuration used in this study. A repo-level "
     "PMU CSV schema is included to support replacement of the synthetic "
     "event generator by recorded PMU events when matched simulation and "
-    "parameter-label metadata are available. The pipeline "
+    "parameter-label metadata are available. We also add a real-PMU "
+    "case study using the LBNL PMU Event Library, converting its voltage "
+    "sag/swell records into the repository schema and using them to test "
+    "field-data ingestion and event morphology. The pipeline "
     "demonstrates that an automated mismatch detector can support MOD-"
     "026-2 and MOD-033 compliance workflows while preserving engineering "
     "interpretability, and we discuss concrete next steps for field "
-    "deployment on real PMU data without over-claiming field validation "
-    "from the synthetic benchmark alone."
+    "deployment on real PMU data without over-claiming MOD-026 parameter "
+    "attribution from a real archive that lacks those labels."
 )
 p = doc.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -528,6 +541,45 @@ add_para(
     "voltage 0.7-1.2 pu) during the 6-s post-event window."
 )
 
+add_para(
+    "The dynamic model can be written compactly as follows. For machine "
+    "i, the rotor-angle and speed states satisfy d(delta_i)/dt = "
+    "omega_i - omega_s and 2H d(omega_i)/dt = omega_s(P_m,i - "
+    "P_e,i - D(omega_i - omega_s)/omega_s). The simplified exciter "
+    "state is dE_fd,i/dt = (sat[K_A(V_ref - V_t,i)] - E_fd,i)/T_A, "
+    "where sat[.] enforces the field-voltage ceiling. The electrical "
+    "coupling is P_e,1 = P_max sin(delta_1 - delta_2), P_e,2 = -P_e,1, "
+    "and the terminal-voltage proxy is V_t approximately equal to "
+    "|E_prime - j Xd_prime I| with I approximately P_e/E_prime. These "
+    "equations are intentionally low order: they preserve the inertia, "
+    "damping, and excitation signatures needed for MOD-026/MOD-033 "
+    "method validation while keeping the parameter labels auditable."
+)
+
+add_para(
+    "For each event k, the PMU trajectory is represented by y_k(t) = "
+    "[V_k(t), f_k(t), delta_k(t), omega_pu,k(t)]. The feature map phi(.) "
+    "splits each channel into four equal windows and stores mean, standard "
+    "deviation, minimum, maximum, the log last-window/first-window "
+    "amplitude ratio, and the first-to-last trend. The trajectory "
+    "surrogate learns g_theta(phi(y_k), u_k) -> V_k(t_event:t_event+1 s), "
+    "where u_k denotes the event descriptor. The held-out trajectory error "
+    "reported in Section 5 is RMSE = sqrt((1/N T) sum_k sum_t "
+    "(V_hat_k,t - V_k,t)^2)."
+)
+
+add_para(
+    "The novelty score is e_k = ||z_k - h_psi(z_k)||_2, where z_k is the "
+    "standardized feature vector and h_psi(.) is the autoencoder trained "
+    "only on correct-model events. The binary alarm is a_k = 1[e_k > "
+    "mu_0 + 3 sigma_0], where mu_0 and sigma_0 are computed from the "
+    "correct-model validation subset. For attribution, features are "
+    "centered by the correct-model centroid c_0 and the sensitivity head "
+    "computes s_c(k) = w_c^T(phi_k - c_0) + b_c. The predicted parameter "
+    "class is argmax_c s_c(k), but only when a_k = 1; otherwise the event "
+    "is reported as correct/no actionable mismatch."
+)
+
 add_heading("3.2 CNN-LSTM-equivalent surrogate (MLPRegressor)", level=2)
 add_para(
     "The full CNN-LSTM architecture of our reference implementation "
@@ -648,8 +700,7 @@ add_code_block(
     dev = X_tr - centroid_correct
     clf = LogisticRegression(
         max_iter=2000, class_weight="balanced",
-        C=1.0, multi_class="multinomial",
-        solver="lbfgs", random_state=RNG_SEED,
+        C=1.0, solver="lbfgs", random_state=RNG_SEED,
     )
     clf.fit(dev, lab_tr)
     return clf, centroid_correct
@@ -743,6 +794,65 @@ add_para(
     "MLPRegressor-based implementation."
 )
 
+add_heading("4.1 Data sources and validation roles", level=2)
+source_rows = [
+    ["Synthetic two-machine PMU benchmark", "880 events", "Line trip, generator trip, three-phase fault", "Known H/D/K_A labels", "Supervised MOD-026/MOD-033 attribution benchmark"],
+]
+if lbnl_summary is not None:
+    source_rows.append([
+        "LBNL PMU Event Library",
+        f"{lbnl_summary['n_events']} events / {lbnl_summary['n_pmu_event_pairs']} PMU-event pairs",
+        "Real distribution-PMU voltage events",
+        "Sag/swell morphology; no MOD-026 parameter labels",
+        "Real-PMU ingestion and morphology check",
+    ])
+else:
+    source_rows.append([
+        "LBNL PMU Event Library",
+        "External archive",
+        "Real distribution-PMU voltage events",
+        "Sag/swell morphology; no MOD-026 parameter labels",
+        "Supported by converter script; summary not generated in this run",
+    ])
+df_sources = pd.DataFrame(source_rows, columns=["Dataset", "Scale", "Events", "Labels", "Role in paper"])
+add_table(
+    df_sources,
+    caption="Table 2. Data sources and their role in the IEEE-style validation workflow.",
+    col_widths_in=[1.5, 1.1, 1.4, 1.5, 1.8],
+    float_fmt="{:.3f}",
+)
+
+add_para(
+    "The LBNL PMU Event Library is used in this revision as a real-data "
+    "ingestion and morphology test. It contains real distribution-PMU "
+    "event captures from the Lawrence Berkeley National Laboratory campus, "
+    "with raw voltage/current phasor CSV files and event-parameter CSV "
+    "files. The archive is highly relevant for PMU preprocessing because "
+    "it contains realistic measurement artifacts, event-to-event duration "
+    "variation, and voltage-sag dynamics. However, it is not a direct "
+    "MOD-026-2 supervised benchmark: it does not provide a matched dynamic "
+    "simulation for each event, nor verified H, D, or K_A parameter-error "
+    "labels. For that reason, this paper uses LBNL data for real-PMU "
+    "schema conversion and event-shape validation, while the synthetic "
+    "benchmark remains the source of auditable parameter-attribution labels."
+)
+
+if lbnl_summary is not None:
+    add_para(
+        f"The converter paper3_lbnl_real_pmu_summary.py normalizes the LBNL "
+        f"raw CSV hierarchy into the Paper 3 schema. In the inspected archive, "
+        f"it identified {lbnl_summary['n_events']} events, "
+        f"{lbnl_summary['n_pmu_event_pairs']} PMU-event pairs, and "
+        f"{lbnl_summary['n_buses']} PMU locations. Voltage sag morphology "
+        f"is present in {lbnl_summary['event_type_counts'].get('voltage_sag', 0)} "
+        f"PMU-event pairs. The normalized voltage range is "
+        f"{lbnl_summary['voltage_pu_min']:.3f}-"
+        f"{lbnl_summary['voltage_pu_max']:.3f} pu after per-event baseline "
+        f"normalization. Frequency is marked unavailable because the inspected "
+        f"LBNL raw CSVs provide voltage/current phasors but not a frequency "
+        f"channel."
+    )
+
 
 # ----------------------------------------------------------------------
 # 5. Results
@@ -801,7 +911,7 @@ add_figure(FIG2, "Figure 2. Autoencoder reconstruction-error histogram for "
 
 add_heading("5.3 Per-class detection and attribution", level=2)
 add_para(
-    "Table 2 reports the per-class detection metrics (precision, recall, "
+    "Table 3 reports the per-class detection metrics (precision, recall, "
     "F1, and support) for the four-class prediction problem that "
     "results from combining the autoencoder's binary novelty decision "
     "with the sensitivity classifier's parameter-error attribution. "
@@ -816,12 +926,12 @@ add_para(
     "faster-AVR re-test as part of the future-work agenda."
 )
 
-# Build Table 2: per-class detection metrics
+# Build Table 3: per-class detection metrics
 df_metrics_disp = df_metrics.copy()
 df_metrics_disp.columns = ["Class", "Precision", "Recall", "F1", "Support"]
 add_table(
     df_metrics_disp,
-    caption="Table 2. Per-class detection metrics on the held-out test set "
+    caption="Table 3. Per-class detection metrics on the held-out test set "
             "(precision, recall, F1, support).",
     col_widths_in=[1.6, 1.1, 1.0, 0.9, 1.0],
     float_fmt="{:.3f}",
@@ -848,7 +958,7 @@ add_figure(FIG3, "Figure 3. Confusion matrix for the four-class parameter-"
 
 add_heading("5.4 Attribution accuracy", level=2)
 add_para(
-    "Table 3 summarises the attribution accuracy by true parameter-"
+    "Table 4 summarises the attribution accuracy by true parameter-"
     "error class. The overall attribution accuracy is "
     f"{summary['attribution_accuracy_overall']:.3f}, computed over "
     "the wrong-model cases only. H and D errors are attributed with "
@@ -865,12 +975,12 @@ add_para(
     "component and avoids a black-box 'the model is wrong' verdict."
 )
 
-# Build Table 3: attribution accuracy summary
+# Build Table 4: attribution accuracy summary
 df_attr_disp = df_attr.copy()
 df_attr_disp.columns = ["Class", "Attribution accuracy"]
 add_table(
     df_attr_disp,
-    caption="Table 3. Attribution accuracy by parameter-error class. "
+    caption="Table 4. Attribution accuracy by parameter-error class. "
             "Overall is computed over all wrong-model cases.",
     col_widths_in=[2.0, 2.5],
     float_fmt="{:.4f}",
@@ -894,8 +1004,56 @@ add_para(
     "in feature space for those two parameter errors. The K_A row, "
     "in contrast, shows low sensitivity scores across all candidate "
     "classes, which is consistent with the failure mode documented in "
-    "Table 3 and Figure 3."
+    "Table 4 and Figure 3."
 )
+
+add_heading("5.5 Real PMU ingestion case study: LBNL Event Library", level=2)
+if lbnl_summary is not None and FIG5.exists():
+    add_para(
+        "Figure 5 reports the real-PMU ingestion case study based on the "
+        "LBNL PMU Event Library. The left panel shows the most severe "
+        "normalized voltage sag identified by the converter; the right "
+        "panel summarizes the distribution of minimum voltage across all "
+        "converted PMU-event pairs. This figure is intentionally separated "
+        "from the supervised MOD-026 parameter-attribution results because "
+        "the LBNL archive does not contain verified H, D, or K_A error labels. "
+        "Its purpose is to demonstrate that the repo-level schema and loader "
+        "can ingest real PMU events with realistic event lengths, missing "
+        "channels, and non-Gaussian voltage excursions."
+    )
+    add_figure(
+        FIG5,
+        "Figure 5. Real PMU ingestion case study using the LBNL PMU Event "
+        "Library. Left: normalized voltage trajectory for the most severe "
+        "sag PMU-event pair. Right: distribution of minimum normalized "
+        "voltage across converted PMU-event pairs.",
+        width_in=6.2,
+    )
+    lbnl_table = pd.DataFrame([
+        ["Source", lbnl_summary["source_dataset"]],
+        ["Events", lbnl_summary["n_events"]],
+        ["PMU-event pairs", lbnl_summary["n_pmu_event_pairs"]],
+        ["PMU locations", lbnl_summary["n_buses"]],
+        ["Voltage sag pairs", lbnl_summary["event_type_counts"].get("voltage_sag", 0)],
+        ["Samples per PMU-event", f"{lbnl_summary['samples_per_pmu_event_min']}-"
+                                      f"{lbnl_summary['samples_per_pmu_event_max']}"] ,
+        ["Normalized voltage range", f"{lbnl_summary['voltage_pu_min']:.3f}-"
+                                      f"{lbnl_summary['voltage_pu_max']:.3f} pu"],
+        ["Frequency channel", "Not available in inspected raw CSVs"],
+        ["MOD-026 parameter labels", "Not available"],
+    ], columns=["Attribute", "Value"])
+    add_table(
+        lbnl_table,
+        caption="Table 5. Real-PMU summary generated from the LBNL PMU Event Library converter.",
+        col_widths_in=[2.4, 3.7],
+        float_fmt="{:.3f}",
+    )
+else:
+    add_para(
+        "The repository includes paper3_lbnl_real_pmu_summary.py to convert "
+        "the LBNL PMU Event Library into the Paper 3 schema, but the LBNL "
+        "summary artifacts were not present when this document was generated."
+    )
 
 
 # ----------------------------------------------------------------------
@@ -1111,6 +1269,9 @@ references = [
     "Generator Excitation Control System or Plant Volt/Var Control "
     "Functions. North American Electric Reliability Corporation, "
     "Atlanta, GA.",
+    "Swenson, T., Vrettos, E., Mueller, J., & Gehbauer, C. (2019). "
+    "Open PMU Event Dataset: Detection and Characterization at LBNL "
+    "Campus. IEEE PES General Meeting.",
     "Wang, S., Liu, Y., & Liu, W. (2020). CNN-LSTM for power system "
     "trajectory prediction after large disturbances. IEEE "
     "Transactions on Power Systems, 35(2), 1345-1355.",
@@ -1150,8 +1311,11 @@ add_para(
     "event dataset, trains the trajectory surrogate, the autoencoder, "
     "and the sensitivity classifier, and writes all figures, CSV "
     "summaries, and the JSON summary used in this paper. "
-    "paper3_assemble_docx.py (this script) builds the Word document "
-    "from those artifacts. Both scripts are deterministic (the random "
+    "paper3_lbnl_real_pmu_summary.py optionally converts a local clone "
+    "of the LBNL PMU Event Library into the repository's real-PMU schema "
+    "and generates Figure 5 plus a JSON summary. paper3_assemble_docx.py "
+    "(this script) builds the Word document from those artifacts. The "
+    "synthetic benchmark scripts are deterministic (the random "
     "seed is fixed at 20260908) and run in a sandboxed Linux "
     "environment with Python 3.12.14, scikit-learn 1.5.2, scipy 1.14.1, "
     "pandas 2.2.3, matplotlib 3.9.2, and python-docx 1.2.0. PyTorch is "
@@ -1169,6 +1333,18 @@ add_para(
     "approximately 90 s on a single CPU core; the assembly script "
     "completes in a few seconds. The figures are saved at 300 DPI "
     "in PNG format and are sized to fit a 6-inch column width."
+)
+
+add_para(
+    "To reproduce the real-PMU case study, first clone the external LBNL "
+    "archive outside this repository with `git clone https://github.com/"
+    "LBNL-ETA/pmu_event_library.git`, then run `python scripts/"
+    "paper3_lbnl_real_pmu_summary.py /path/to/pmu_event_library`. This "
+    "writes figures/paper3_lbnl_real_pmu_summary.json, "
+    "figures/paper3_fig5_lbnl_real_pmu_summary.png, and "
+    "data/real_pmu/lbnl_sample_normalized.csv. The raw LBNL archive is "
+    "not vendored into this repository; the paper cites the source and "
+    "records the converter used to normalize it."
 )
 
 add_para(
