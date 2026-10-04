@@ -1,6 +1,6 @@
 # Academic Paper Collection — CAPSM x NERC/NPCC + CNN-LSTM + PG-CARE EV Forecasting
 
-**13 academic research papers**: Papers 1-10 bridge the CAPSM (Cognitive Adaptive Power System Management) PhD thesis with NERC/NPCC reliability standards, Papers 11-12 cover System-1 CNN-LSTM fault detection, and Paper 13 adds PG-CARE physics-guided conformal reliability for one-hour-ahead EV flexibility forecasting and risk-aware V2G dispatch. All methodologies are implemented in Python using open-source tools.
+**13 academic research papers**: Papers 1-10 bridge the CAPSM (Cognitive Adaptive Power System Management) PhD thesis with NERC/NPCC reliability standards, Papers 11-12 cover System-1 CNN-LSTM fault detection, and Paper 13 adds leakage-free PG-CARE physics-guided conformal reliability for one-hour-ahead EV flexibility forecasting with distribution-feeder support. All methodologies are implemented in Python using open-source tools.
 
 ## Paper Inventory
 
@@ -30,9 +30,9 @@
 
 | # | Paper | Focus | Status |
 |---|-------|-------|--------|
-| 13 | PG-CARE: Physics-Guided Conformal Reliability for One-Hour-Ahead EV Flexibility Forecasting and Risk-Aware V2G Dispatch | 365-day / 100-EV digital twin (15-min supervisory), LightGBM + physics projection + split-conformal sets, XGBoost flexibility regression with risk-calibrated reserve commitment; IEEE Transactions-style manuscript (PDF + DOCX), 10 figures, full code/data/models | Complete — full reproducibility package in `papers/paper13_pgcare_ev_flexibility/` |
+| 13 | PG-CARE v2: Leakage-Free Physics-Guided Conformal Reliability for One-Hour-Ahead EV Flexibility Forecasting and Distribution-Feeder Support | Leak-free pipeline (declared schedule vs realized connection, predicted connectivity, no target-time info in mask) + CQR flexibility intervals + IEEE 33-bus QSTS + RBR recovery; IEEEtran LaTeX + Word + PDF manuscript, raster + vector figures, full code/data/models/tests | Complete — superseding v2 reproducibility package in `papers/paper13_pgcare_ev_flexibility/` (v1 retained under `legacy_v1/`) |
 
-**Paper 13 headline results (chronological held-out test)**: raw LightGBM macro-F1 0.7501 → LightGBM + physics 0.8424 → full PG-CARE 0.8482 (MCC 0.7663, V2G F1 0.7935); 90% conformal marginal coverage 0.9012 with 4.56% ambiguous-set rate. Frozen 90-day shifted regime (no retraining): PG-CARE macro-F1 0.7970 vs raw LightGBM 0.6840. Closed-loop reserve study ($0.18/kWh revenue, $0.55/kWh shortfall penalty assumptions): raw XGBoost –$1,161.67 net / 11.49 MWh shortfall vs PG-CARE +$697.67 net / 2.32 MWh shortfall. See `papers/paper13_pgcare_ev_flexibility/README.md` and `RESULTS_TRACEABILITY.md` for the claim-to-evidence map.
+**Paper 13 headline results (v2, chronological full test — 203,900 forecasts over 85 days)**: raw LightGBM macro-F1 0.7986 (V2G F1 0.6700) → leak-free physics projection 0.8140 (V2G F1 0.7088) → PG-CARE v2 conformal + abstention 0.8183 (V2G F1 0.7155). Paired issue-time block-bootstrap delta +0.0196 [0.0171, 0.0221]; exact McNemar p = 6.26e-310. Split-conformal marginal coverage 0.9117 (V2G-conditional 0.8016, reported as a limitation); CQR flexibility coverage 0.8996 at 6.50 kW mean width. IEEE 33-bus QSTS: raw mean-flexibility commitment 125.5 MWh / 8.68 MWh shortfall vs CQR lower bound 43.1 MWh / 0 shortfall vs RBR 53.8 MWh / 0 shortfall (oracle 152.2 MWh). See `papers/paper13_pgcare_ev_flexibility/README.md` and `docs/RESULTS_TRACEABILITY_V2.md` for the claim-to-evidence map.
 
 ## Quick Start
 
@@ -83,19 +83,19 @@ python run_all.py --quick --device cpu
 python run_all.py --device cuda
 ```
 
-### Run Paper 13 (PG-CARE)
+### Run Paper 13 (PG-CARE v2, leakage-free)
 
 ```bash
 cd papers/paper13_pgcare_ev_flexibility
 
-# Exact dependencies for the PG-CARE study (separate from root requirements.txt)
-python -m pip install -r requirements.txt
+# Pinned v2 environment
+python -m pip install -r requirements_v2.txt
 
-# One-command full reproduction (digital twin → training → PG-CARE → OOD/stats → figures → manuscript)
-python reproduce_all.py
+# One-command full v2 reproduction (offline pipeline only; external-data adapters need user credentials)
+python reproduce_v2.py
 ```
 
-Paper 13 original bundle is also archived as `papers/paper13_pgcare_ev_flexibility/PG_CARE_All_Code_Data_Models_Manuscript.zip` (27 MB).
+Paper 13 original v2 bundle is also archived as `papers/paper13_pgcare_ev_flexibility/PG_CARE_Transactions_v2_MASTER_All_Files_Code_Data_Models.zip` (53 MB). The superseded v1 package is retained under `legacy_v1/` for audit history.
 
 ## Repository Structure
 
@@ -115,19 +115,21 @@ Review-Papers/
 │   │   │   ├── models/               # Trained checkpoints
 │   │   │   └── results/              # Evaluation JSONs
 │   │   └── figures/                  # Publication figures
-│   ├── paper13_pgcare_ev_flexibility/  # PG-CARE EV forecasting (Paper 13)
-│   │   ├── README.md                   # Study overview + reproduction guide
-│   │   ├── PG_CARE_All_Code_Data_Models_Manuscript.zip  # Original bundle (27 MB)
-│   │   ├── reproduce_all.py            # One-command reproduction entry point
-│   │   ├── requirements.txt            # Pinned Paper 13 env (numpy, torch, lightgbm, xgboost, catboost, ...)
-│   │   ├── CODE_RUN_ORDER.md / DATA_DICTIONARY.md / RESULTS_TRACEABILITY.md / SOURCE_PROVENANCE.md
-│   │   ├── code/                       # 01_digital_twin → 02/03_train → 04_pgcare → 05_ood → 07/08_bootstrap/timing → 09_figures → 10_manuscript (+ development_archive/)
-│   │   ├── data/                       # Fleet params, aggregate time series, digital-twin arrays
-│   │   ├── results/                    # Metrics, bootstrap CIs, trained models (xgb/lgbm/catboost/tcmoe), audit CSVs
-│   │   ├── figures/                    # fig1_framework … fig10_confusion (manuscript-ready PNGs)
-│   │   ├── manuscript/                 # PG_CARE_IEEE_Transactions_Manuscript.{docx,pdf}
-│   │   ├── references/                 # 25-paper 2020–2026 bibliography (.bib/.csv/.txt)
-│   │   └── source_artifacts/           # Published Simulink controller (.slx) + working manuscript snapshot
+│   ├── paper13_pgcare_ev_flexibility/  # PG-CARE v2 leakage-free (Paper 13)
+│   │   ├── README.md                   # v2 overview + reproduction guide
+│   │   ├── PG_CARE_Transactions_v2_MASTER_All_Files_Code_Data_Models.zip  # Original v2 bundle (53 MB)
+│   │   ├── reproduce_v2.py             # One-command v2 reproduction entry point
+│   │   ├── requirements_v2.txt         # Pinned v2 env
+│   │   ├── docs/                       # Traceability, novelty, limitations, critique-resolution records
+│   │   ├── code_v2/                    # Leak-free pipeline (connectivity prediction → CQR → QSTS → figures)
+│   │   ├── data_v2/                    # v2 digital-twin arrays + aggregates
+│   │   ├── results_v2/                 # Models, audits, calibration, statistics, QSTS results
+│   │   ├── figures_v2/                 # Raster + vector manuscript figures
+│   │   ├── manuscript/                 # IEEEtran LaTeX + Word + compiled PDF
+│   │   ├── references/                 # 2020–2026 bibliography (.bib/.csv/.txt)
+│   │   ├── source_artifacts/           # Published Simulink controller (.slx) + manuscript snapshot
+│   │   ├── tests/                      # Information-integrity invariant tests
+│   │   └── legacy_v1/                  # Superseded v1 package (audit history only)
 ├── scripts/                      # Python simulation scripts (Papers 1-10)
 └── figures/                      # Generated PNGs + CSVs (Papers 1-10)
 ```
@@ -142,7 +144,7 @@ Review-Papers/
 
 **Reproducibility**: All scripts use fixed random seeds. All results are fully reproducible.
 
-**Paper 13 provenance & boundaries**: PG-CARE supervisory EV logic is a Python reconstruction/extension of the published MATLAB/Simulink controller in Kiasari & Aly, *Journal of Energy Storage* vol. 99, Art. 113235 (2024). The original `.slx` snapshot is retained in `papers/paper13_pgcare_ev_flexibility/source_artifacts/` with Drive IDs/hashes in `SOURCE_PROVENANCE.md`. The study is a 365-day averaged 15-min fleet model — no claim of switching-level equivalence, measured external-field validation, ACN-Data fitting, network power-flow/HIL validation, market-specific revenue, or electrochemical aging validation. Dependency pinning is per-paper (`papers/paper13_pgcare_ev_flexibility/requirements.txt`); integrity hashes in `SHA256SUMS.txt`, claim map in `RESULTS_TRACEABILITY.md`.
+**Paper 13 provenance & boundaries (v2)**: PG-CARE supervisory EV logic is a Python reconstruction/extension of the published MATLAB/Simulink controller in Kiasari & Aly, *Journal of Energy Storage* vol. 99, Art. 113235 (2024). The original `.slx` snapshot is retained in `papers/paper13_pgcare_ev_flexibility/source_artifacts/`. v2 removes the v1 target-time-connectivity flaw: declared schedule vs realized connection are separated, connectivity is predicted from issuance-time history, and conformal/CQR layers are calibrated after the leak-free projection. The study is a source-informed supervisory simulation — no claim of switching-level equivalence, field trial, utility deployment, or OOD conformal guarantees. Dependency pinning is per-paper (`requirements_v2.txt`); integrity hashes in `SHA256SUMS.txt`/`MASTER_SHA256SUMS.txt`, claim map in `docs/RESULTS_TRACEABILITY_V2.md`, remaining flagship-submission gate (executed measured-data validation) in `docs/LIMITATIONS_AND_SUBMISSION_GATE.md`.
 
 ## License
 

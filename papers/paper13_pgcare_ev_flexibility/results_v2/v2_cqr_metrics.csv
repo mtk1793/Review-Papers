@@ -1,0 +1,6 @@
+metric,value
+MAE point upflex kW,0.682776126431233
+RMSE point upflex kW,1.9207142380310107
+CQR empirical coverage,0.8996321726336439
+CQR mean width kW,6.501806072173312
+CQR zero-safe fraction,0.6776017655713585

@@ -1,0 +1,53 @@
+claim_or_artifact,file,role
+Final Word manuscript,manuscript/PG_CARE_IEEE_Transactions_Manuscript.docx,IEEE Transactions-style editable manuscript
+Rendered PDF manuscript,manuscript/PG_CARE_IEEE_Transactions_Manuscript.pdf,Layout-checked PDF preview
+Published controller source,source_artifacts/V2GStronge2_published_controller.slx,Original MATLAB/Simulink model snapshot from Google Drive
+Published controller manuscript,source_artifacts/Published_Controller_Working_Manuscript.docx,Historical/source documentation
+Source provenance,SOURCE_PROVENANCE.md,Drive IDs source hash and evidence boundary
+Data dictionary,DATA_DICTIONARY.md,Generated-data and feature definitions
+Results traceability,RESULTS_TRACEABILITY.md,Claim-to-code/output map
+Digital twin generator,code/01_generate_digital_twin.py,Deterministic 365-day 100-EV supervisory simulation
+Core forecasting experiment,code/02_train_core_models.py,Chronological sampling LR/RF/XGB/TC-MoE regression and reserve test
+Modern ML baselines,code/03_train_modern_baselines.py,LightGBM and CatBoost benchmarks
+PG-CARE reliability engine,code/04_build_pgcare.py,LightGBM physics projection and split-conformal safety
+OOD and economics tests,code/05_ood_and_statistics.py,90-day shifted regime reserve value and throughput sensitivity
+PG-CARE bootstrap,code/07_pgcare_bootstrap.py,1000-resample CIs and paired deltas
+Inference timing,code/08_inference_timing.py,Software-side CPU timing for final models
+Figures,code/09_make_figures.py,All 10 manuscript figures including confusion matrices
+Word manuscript builder,code/10_build_manuscript.py,Rebuilds final Word manuscript from results and figures
+One-command reproduction,reproduce_all.py,Executes final workflow in deterministic order
+Development archive,code/development_archive/,Preserved exploratory and duplicate scripts not used in final path
+Fleet parameters,data/fleet_parameters.csv,EV capacities chargers SOC constraints and policies
+Main aggregate data,data/aggregate_timeseries.csv,365-day feeder-level time series
+Main state arrays,data/digital_twin_arrays.npz,EV-level SOC state connectivity power and mobility arrays
+OOD aggregate data,data/ood_aggregate_timeseries.csv,90-day shifted-regime time series
+OOD state arrays,data/ood_shift_arrays.npz,EV-level shifted-regime arrays
+Split indices,results/split_indices.npz,Frozen deterministic train validation test samples
+Core classification,results/classification_metrics.csv,Persistence LR RF XGB TC-MoE metrics
+Modern baseline table,results/modern_baselines.csv,LightGBM and CatBoost metrics and training time
+PG-CARE ablation,results/pgcare_lgbm_metrics.csv,Raw selected expert physics and conformal results
+Full chronological audit,results/prediction_audit_lgbm_full_test.csv,Per-sample test truth probabilities and predictions
+Bootstrap intervals,results/bootstrap_ci_lgbm.csv,95 percent intervals for LightGBM and PG-CARE
+Paired effect intervals,results/paired_bootstrap_lgbm.csv,PG-CARE minus LightGBM 95 percent intervals
+Regression table,results/regression_metrics.csv,SOC and up/down flexibility MAEs
+Closed-loop test,results/closed_loop_metrics.csv,Reserve revenue penalties value delivered energy and shortfall
+OOD classification,results/ood_shift_metrics.csv,Frozen shifted-regime metrics
+OOD closed-loop,results/ood_closed_loop_metrics.csv,Frozen shifted-regime reserve-value test
+Throughput sensitivity,results/throughput_cost_sensitivity.csv,Battery-throughput cost proxy
+Inference timing results,results/inference_timing.csv,Median software inference timings
+Headline result index,results/final_headline_results.csv,Compact index of principal reproduced values
+Study metadata,results/study_summary.json,Scale calibration risk factor and conformal settings
+OOD metadata,results/ood_summary.json,OOD class distribution and conformal diagnostics
+System metadata,results/system_info.txt,Exact software/runtime versions
+Trained LightGBM,results/lightgbm_classifier.txt,Frozen final state classifier
+Trained CatBoost,results/catboost_classifier.cbm,Modern baseline model
+Trained XGBoost classifier,results/xgb_classifier.json,Core classifier model
+Trained XGBoost up-flex,results/xgb_upflex.json,Frozen upward-flexibility regressor
+Trained XGBoost down-flex,results/xgb_downflex.json,Frozen downward-flexibility regressor
+Trained TC-MoE,results/tcmoe.pt,Temporal deep expert retained as negative result
+Figures,figures/,Final figures 1 through 10
+Literature CSV,references/references_2020_2026.csv,Curated 25-reference 2020-2026 bibliography
+Literature BibTeX,references/references_2020_2026.bib,BibTeX version of bibliography
+Literature text,references/references_2020_2026.txt,Human-readable bibliography notes
+Dependency pins,requirements.txt,Exact Python dependency versions
+Integrity hashes,SHA256SUMS.txt,SHA-256 hashes for packaged files

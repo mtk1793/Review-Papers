@@ -1,3 +1,0 @@
-component,samples,median_total_ms,median_us_per_sample
-LightGBM classifier,20000,117.82630799996241,5.8913153999981205
-XGBoost flexibility,20000,4.179072999932032,0.2089536499966016

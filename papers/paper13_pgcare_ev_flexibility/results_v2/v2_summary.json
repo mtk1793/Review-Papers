@@ -1,0 +1,24 @@
+{
+  "version": "PG-CARE v2 leak-free",
+  "train_days": 200,
+  "cal_days": 40,
+  "val_days": 40,
+  "test_days": 85,
+  "full_test_examples": 203900,
+  "class_alpha": 0.1,
+  "class_probability_threshold": 0.5158948640455958,
+  "cqr_qhat": 0.0019082943315643138,
+  "connectivity": {
+    "accuracy": 0.9701765571358509,
+    "f1": 0.9721638583336767,
+    "auc": 0.9960276184151032,
+    "threshold": 0.3
+  },
+  "train_seconds": {
+    "connectivity": 1.8737911810000014,
+    "state": 7.815672624000058
+  },
+  "mcnemar_p": 6.2599668356596e-310,
+  "rbr_beta": 1.0,
+  "future_information_mask": "PROHIBITED: physics_project receives no target-time state/connectivity arrays"
+}
