@@ -45,7 +45,7 @@ jobs:
           assert set(archives)==set(expected), f'Missing/extra bundles: {set(expected)^set(archives)}'
           seen=set()
           for name,data in sorted(archives.items()):
-              sha=hashlib.sha1(f'blob {len(data)}\\0'.encode()+data).hexdigest()
+              sha=hashlib.sha1(b'blob '+str(len(data)).encode()+bytes([0])+data).hexdigest()
               assert sha==expected[name],f'Bundle SHA mismatch: {name}'
               with zipfile.ZipFile(BytesIO(data)) as z:
                   assert z.testzip() is None,f'Archive CRC mismatch: {name}'
