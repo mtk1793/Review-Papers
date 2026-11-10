@@ -1,0 +1,59 @@
+name: Expand November 2026 publication revision archives
+
+on:
+  push:
+    branches:
+      - add-2026-publication-revisions
+    paths:
+      - incoming_revisions_2026/_READY_FOR_IMPORT.txt
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-manuscripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: true
+      - name: Verify and import all paper folders
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile, hashlib
+          root = Path('incoming_revisions_2026')
+          zips = sorted(root.glob('*.zip'))
+          assert len(zips) == 17, f'Expected 17 archives, found {len(zips)}'
+          seen = set()
+          for archive in zips:
+              with zipfile.ZipFile(archive) as z:
+                  bad = z.testzip()
+                  assert bad is None, f'Damaged archive: {archive}: {bad}'
+                  for item in z.infolist():
+                      path = item.filename
+                      assert path.startswith('papers/revisions_2026-11-10/'), path
+                      assert '..' not in Path(path).parts and not path.startswith('/'), path
+                      if item.is_dir():
+                          continue
+                      assert path not in seen, f'Duplicate archive destination: {path}'
+                      seen.add(path)
+                      target = Path(path)
+                      target.parent.mkdir(parents=True, exist_ok=True)
+                      target.write_bytes(z.read(item))
+          assert len(seen) == 308, f'Expected 308 archived source and revised files, found {len(seen)}'
+          print(f'Extracted {len(zips)} verified ZIP archives into {len(seen)} files')
+          PY
+      - name: Commit unpacked manuscripts and remove transport bundles
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A papers/revisions_2026-11-10
+          git rm -r incoming_revisions_2026
+          git diff --cached --stat | tail -5
+          git commit -m "Import 16 aligned publication revision folders with original sources"
+          git push
