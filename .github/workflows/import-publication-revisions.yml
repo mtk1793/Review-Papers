@@ -24,30 +24,43 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import zipfile, hashlib
-          root = Path('incoming_revisions_2026')
-          zips = sorted(root.glob('*.zip'))
-          assert len(zips) == 17, f'Expected 17 archives, found {len(zips)}'
-          seen = set()
-          for archive in zips:
-              with zipfile.ZipFile(archive) as z:
-                  bad = z.testzip()
-                  assert bad is None, f'Damaged archive: {archive}: {bad}'
+          from collections import defaultdict
+          from io import BytesIO
+          import zipfile, hashlib, json
+
+          root=Path('incoming_revisions_2026')
+          manifests=json.loads((root/'_READY_FOR_IMPORT.txt').read_text())
+          groups=defaultdict(list)
+          for part in root.glob('*.part'):
+              base=part.name.rsplit('__',1)[0]
+              groups[base].append(part)
+          archives={}
+          for name, pieces in groups.items():
+              data=b''.join(p.read_bytes() for p in sorted(pieces))
+              archives[name+'.zip']=data
+          for f in root.glob('*.zip'):
+              assert f.name not in archives
+              archives[f.name]=f.read_bytes()
+          expected=manifests['archives']
+          assert set(archives)==set(expected), f'Missing/extra bundles: {set(expected)^set(archives)}'
+          seen=set()
+          for name,data in sorted(archives.items()):
+              sha=hashlib.sha1(f'blob {len(data)}\\0'.encode()+data).hexdigest()
+              assert sha==expected[name],f'Bundle SHA mismatch: {name}'
+              with zipfile.ZipFile(BytesIO(data)) as z:
+                  assert z.testzip() is None,f'Archive CRC mismatch: {name}'
                   for item in z.infolist():
-                      path = item.filename
-                      assert path.startswith('papers/revisions_2026-11-10/'), path
-                      assert '..' not in Path(path).parts and not path.startswith('/'), path
-                      if item.is_dir():
-                          continue
-                      assert path not in seen, f'Duplicate archive destination: {path}'
+                      path=item.filename
+                      assert path.startswith('papers/revisions_2026-11-10/'),path
+                      assert '..' not in Path(path).parts and not path.startswith('/'),path
+                      if item.is_dir():continue
+                      assert path not in seen,f'Duplicate destination: {path}'
                       seen.add(path)
-                      target = Path(path)
-                      target.parent.mkdir(parents=True, exist_ok=True)
-                      target.write_bytes(z.read(item))
-          assert len(seen) == 308, f'Expected 308 archived source and revised files, found {len(seen)}'
-          print(f'Extracted {len(zips)} verified ZIP archives into {len(seen)} files')
+                      dst=Path(path);dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(z.read(item))
+          assert len(seen)==308,f'Expected 308 files, found {len(seen)}'
+          print(f'Unpacked {len(archives)} verified bundles into {len(seen)} files')
           PY
-      - name: Commit unpacked manuscripts and remove transport bundles
+      - name: Commit expanded manuscripts
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
