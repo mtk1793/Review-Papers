@@ -1,0 +1,510 @@
+Enhancing Wind Power Forecasting Accuracy in
+Canada Using a Solar Data-Enhanced Hybrid Machine
+Learning Model: Integrating ANN, LSTM, and SVR
+Mahmoud M. Kiasari; Hamed H. Aly, SMIEEE
+Electrical and Computer Engineering Department, Dalhousie University
+Abstract— As the world moves toward sustainable energy
+solutions, wind power emerges as a pivotal renewable energy
+(RE) source due to its accessibility and zero carbon emission.
+However, its unpredictable nature poses significant forecasting
+challenges, that impact energy management efficiency. This
+study tackles this vital challenge by integrating solar power data
+into advanced machine learning models to enhance the forecast
+accuracy and quantifying uncertainty of wind power. For this
+work, the MERRA-2 dataset – a comprehensive atmospheric
+reanalysis from NASA – spanning 2017 to 2019 across three
+different locations of Canadian provinces, British Colombia,
+Manitoba, and Nova Scotia has been considered. A novel hybrid
+machine learning framework that combines the strengths of
+Artificial Neural Networks (ANN), Long Short-Term Memory
+Networks (LSTM), and Support Vector Machines (SVM), has been
+announced. Utilizing this framework excels in pattern recognition,
+temporal data processing, and regression analysis, effectively will
+improve the precision of wind power forecasts. Besides, it provides
+a robust framework for quantifying forecast uncertainty, thereby
+enhancing decision-making in renewable energy management.
+The superiority of this model is demonstrated through comparative
+evaluations against conventional methods using various metrics to
+establish its efficacy and applicability in real-world scenarios.
+Keywords—Renewable Energy, Wind, Solar, Machine
+Learning, MERRA 2
+I. INTRODUCTION
+Renewable energy sources have increasingly become vital
+to global strategies in the quest for sustainable energy
+solutions. Among all of them, wind power stands out due to its
+considerable potential and environmental benefits. In recent
+years, different countries have ramped up their investment in
+wind power for the mitigation of impacts of climate change,
+and carbon footprints, and reduced their reliability on fossil
+fuels[1]. The International Energy Agency (IEA) highlights
+that rapid technological advancements have not only reduced
+the costs of renewable energy production but have also made
+wind and solar energy increasingly competitive against
+conventional fossil fuels. Despite all of the improvements, one
+of the main challenges in harnessing wind power which is its
+inherent intermittency still remains. Features like wind speed
+and direction have an enormous impact on the energy
+production. The unprecedented nature of wind features
+emphasizes the necessity of using advanced forecasting and
+management strategies to address grid integration issues,
+investment risks, and operational efficiency.
+Recent advancements in forecasting methodologies have
+elevated the capabilities of ML algorithms to address the
+unpredictability of wind generation. For instance, this study [2]
+explores the use of ANN to predict wind speed and direction,
+two important factors in wind generation the wind speed was
+considered in this work, demonstrating a significant
+improvement over traditional ones. Furthermore, the
+integration of the LSTM network, highlighted by this work [3]
+has offered promising results in capturing the temporal
+dependencies in wind speed to refine the precision of wind
+power prediction. The incorporation of SVM, into wind power
+forecasting has also been studied in this paper [4], when
+combined with other ML techniques, it can effectively model
+the non-linearity between the wind speed and the power. The
+role of environmental data, like solar irradiance, air
+temperature, and precipitation, in enhancing the accuracy of
+wind power forecasts has been increasingly acknowledged. A
+thorough study [5] demonstrated how incorporating solar
+power data into a wind forecasting model could signify the
+precision in the accuracy of wind power by solar
+interconnection. Alongside that, this paper [6] also proposed
+different hybrid combinations of Adaptive Neuro – Fuzzy
+Interference Systems (ANFIS ), Recurrent Kalman Filter (
+RKF ), and Neuro-Wavelet ( WNN ), to demonstrate the
+superior performance of hybrid models over the single method
+ones.
+The organization of this work is as follows. Section II
+introduces each ML technique and its integration. Section III
+is about data integration analysis and forecasting models. In
+section IV, model implementation and validation have been
+discussed, Results and future works are in sections V and VI,
+respectively.
+II. INTEGRATED DATA ANALYSIS AND FORECASTING MODELS
+A. Data Collection and Preparation
+The approach begins with the in-depth collection of
+environmental data from different geographical regions within
+Canada, British Colombia, Manitoba, and Nova Scotia. In the
+below table, the locations in those provinces have been
+indicated.
+Table 1 Data locations
+Location Latitude(Lat) Longitude(Lon)
+British Colombia 55.0013 -125.0024
+Manitoba 55.0013 -97.0010
+Nova Scotia 45.1960 -63.1654
+This study evaluates three distinct wind turbines, each
+selected for their exceptional power generation capabilities,
+pioneering designs, and technological advancements that align
+with the objectives of enhancing wind power forecasting[7].
+• Enercon E126/6500: This turbine features an impressive
+126-meter rotor diameter and a gearless direct-driven
+system, capable of generation of 7 MW of power. It is most
+specifically designed for high-wind area environments,
+making it an ideal candidate for regions in Canada that
+experience intense wind conditions.
+• Siemens SWT-3.6: As another beneficial turbine for
+windy areas, this turbine with a 120-meter rotor diameter
+and a medium capacity of 3.6 MW, has been chosen.
+• Vestas V90-2: With a 90-meter rotor diameter and a 2 MW
+capacity, this turbine is well-suited for areas with moderate
+wind speeds, and a complementary part for this study's
+need to test under diverse environmental conditions.
+In this study, the Enercon E126/6500, Siemens SWT-3.6,
+and Vetas-2 wind turbines have been used in three distinct
+locations in Canada, each of them carefully selected in order to
+showcase a broad spectrum of technologies and capabilities.
+This strategic deployment across diverse Canadian landscapes
+allows for an exhaustive analysis of turbine performance under
+various wind conditions ( from high wind areas to variable
+ones ).
+Table 2 Turbine models and their characteristics
+Turbine Model Hub height Rotor Diameter Capacity
+Enercon E126 136 m 126 m 7.5 Mw
+SWT-3.6 90 m 120 m 3.6 Mw
+V90 80 m 90 m 2 Mw
+Since 1980, the MERRA-2, developed by NASA’s Global
+Modeling and Assimilation Office, has faced fundamental
+enhancements, making it the backbone of many atmospheric
+data analysis studies. Also, NASA’s ozone profile has been
+used in this dataset since 2004, which enriched its superiority.
+The Fidelity of the dataset is sustained by improvements in
+both Gridpoint Statistical Interpolation (GSI) and Goddard
+Earth Observing System (GEOS), maintaining its resolution at
+50km in the latitudinal direction[9]. The integration of this data
+set into this study, due to its refined spatial and temporal
+resolution, which contains various environmental features like
+air temperature or wind speed, is inevitable. Incorporating vast
+satellite observations with advanced data adjustments aids this
+dataset in gathering accurate and consistent valuable
+information from the atmosphere. This evolutionary
+enhancement in data quality enriches the understanding of
+climate dynamics, underpinning the robustness of this study's
+forecasting by providing thorough information on the features
+of atmospheric conditions that have an enormous impact on
+renewable energy generation.
+B. Data Cleaning and Integration
+This section will explore the precise processes of ensuring
+the dataset quality, consistency, and comparability. Using
+powerful programming languages like Python aims to refine
+the raw data gathered into a coherent, analysis-ready format.
+Some issues like missing values, outliers, and inconsistencies
+across the dataset were issued, ensuring a solid foundation for
+accurate forecasting. The data source variety leads to the fact
+that the ML system would face different units of measurement,
+normalization, and transformation to establish a robust
+essential for quality assurance. In the following parts, each step
+taken to prepare the dataset for the ML model training has been
+clarified.
+• Missing Data Handling: Each specific dataset inevitably
+contains missing values for certain features, that can
+introduce inaccuracies or errors in the trained model. To
+address this missing values are interpolated by the usage of
+existing data from the dataset, ensuring a seamless flow of
+information for the usage in models. [11].
+• Data Normalizations and Transformations:
+Normalization of data processes into a standard range
+ensures uniformity in data units and facilitates the
+comparison of various scale features. [12].
+• Integration Techniques: Integration of heterogeneous
+data sources presents significant challenges, especially in
+aligning disparate formats and scales. In this study, an
+exclusive The MERRA-2 dataset, known for its extensive
+information, along with other environmental data from
+various locations for the three-year span required
+substantial manual adjustments to ensure the uniformity of
+the dataset.
+C. Model Configuration
+In this section, intricate elaboration will be on the selected
+ML models for the study. For this work, ANN, SVR, and
+LSTMs have been chosen. The complexity of the data set, with
+the varied variables and temporal dynamics, needed a profound
+model can find the patterns among the features. For the ANN
+and LTSM models, careful consideration was to their
+hyperparameters, hidden layers or neurons within each layer,
+to capture the correlation among the input datasets, thereby
+enhancing predictive performance. The number of hidden
+layers in the ANN model was designed in a way to commence
+with a size roughly half of the input features, to employ a
+geometric progression for decreasing the numbers of
+subsequent layers. Using this way aids in gradually
+concentrating the most useful information for the task.
+Activation functions are essential mathematical tools in
+machine learning, particularly within neural networks. These
+functions are applied to the input of each node and transfer it
+into an output signal that serves as the input for the next layer.
+Commonly used activation functions include Rectified Linear
+Units (ReLU), sigmoid, and SoftMax, each of them offering
+unique features that would be used in different types of
+modeling scenarios[14].
+𝑓(𝑥) = 𝑚𝑎𝑥⁡(0, 𝑥) (1)
+𝑓(𝑥) =
+1
+1 +⁡𝑒−𝑥
+(2)
+For the equation (1) is defined as the input and the output
+would be x itself, if the input is bigger than zero, and it would
+be zero if the input is negative. For equation (2), the function
+would have the input and map the output value between 0 and
+1, making it suitable for better interpretation, especially for
+small or big numbers.
+Fig. 2. ReLU and Sigmoid activation functions
+D. Evaluation Metrics
+Wind power forecasting involves continuous values, that needs
+to be assessed with regression analysis and appropriate
+evaluation metrics. This study utilizes two key metrics; R-
+squared for its ability to explain variance in the target variable
+and Mean Squared Logarithmic Error (MSLE) for handling
+skewed distributions and balanced error evaluation. Moreover,
+K-fold cross validation is used to ensure the model robustness
+and reliability for various datasets[15]
+MSLE measure the ratio between actual (𝑦𝑖) and predicted
+(𝑦
+̅𝑖) values after applying the neutral logarithm, ensuring all
+inputs are positive by adding small constant.
+𝑀𝑆𝐿𝐸 =⁡
+1
+𝑛
+⁡∑ (log(1 + 𝑦𝑖) − log(1 +⁡𝑦
+̅𝑖))2
+𝑛
+𝑖=1
+(3)
+R2 quantifies the proportion of variance in the mean (𝑦
+̅)
+and other related variables, as mentioned in the last formula, in
+the following one.
+⁡𝑅2
+= 1 −⁡
+∑ (𝑦𝑖 −⁡𝑦𝑖
+)2
+𝑛
+𝑖=1
+∑ (𝑦𝑖 −⁡𝑦
+̅)2
+𝑛
+𝑖=1
+(4)
+Fig. 3. K (10) - fold cross validation
+K-fold cross validation evaluates the skill of ML models by
+dividing the dataset into K subsets. The performance measure
+(P) for each fold, where 𝑃𝑖 represents the performance metrics
+of R2 and MSLE in each subset.
+𝑃 =⁡
+1
+𝐾
+∑ 𝑃𝑖
+𝐾
+𝑖=1
+(5)
+III. INTEGRATING ANN, SVR, AND LTSM FOR PREDICTIVE
+MODELING IN WIND POWER FORECASTING
+Forecasting has faced an enormous advance with the
+advent of ML. This transformation mainly relies on the vast
+amount of data that could be gathered by industries that are
+collected in datasets or websites like “Renewable Ninja”,
+which researchers and engineers have access to[16]. Among
+all ML techniques, this work focused on three specific ones.
+ANN, SVR ( the regression model of SVM ), and LSTM were
+chosen for their ability to handle the non-linear and intricate
+patterns characteristic of wind data[2]. Having these three
+models as a hybrid ML framework offers a promising approach
+for optimal RE forecasting.
+• ANN: Utilizing the pattern recognition capabilities
+inherent in ANN, inspired by the neural architectures of
+animal brains, this model excels in identifying intricate
+patterns and dependencies within complex, dynamic
+datasets, such as those encountered in wind power time
+series[17].
+• SVR: Chosen for its proficiency in managing high-
+dimensional data, SVR applies the kernel trick to
+effectively tackle the non-linear relationships found in
+wind power data, optimizing the balance between model
+complexity and predictive accuracy essential in volatile
+environments [5].
+• LSTM: As a specialized form of Recurrent Neural
+Networks (RNNs), LSTM is particularly adept at capturing
+long-term dependencies in time series data, a critical
+feature in the predictability of wind patterns [18].
+IV. MODEL IMPLEMENTATION AND VALIDATION
+A. Data Preparation and Preprocessing
+The foundation of this model implementation began with
+the data collection phase, where MERRA-2 was used , which
+is acclaimed for its comprehensive atmospheric reanalysis
+capabilities. The spatial resolution of the MERRA-2 data is
+approximately 0.5° x 0.625° (latitude x longitude), which
+equates to about 50km x 50km at the equator, providing
+detailed geographical coverage sufficient to capture diverse
+climatic conditions across Manitoba, Nova Scotia, and British
+Columbia spinning the years 2017 to 2019. One hour time
+interval for 1095 days from the MERRA-2 as inputs for
+network training, 10 × 236314 numbers of dataset with their
+within features, and wind generation taken as the target data.
+They have divided into 70% for training, 15% for validation,
+and the rest for testing. The data characterized included metrics
+from three different turbines: Enercon E126 6500, Siemens
+SWT 3.6, and V90 2000. The specifics of steps and
+input/output data can be seen in Fig. 4 and Fig. 5.
+B. Model Architecture and Hybrid Model Formulation
+The work offered the integration of two sophisticated
+neural networks: the ANN and LSTM. The ANN component
+was designed with an input layer of 256 neurons, followed by
+two hidden layers each comprising 128 neurons, all in ReLU
+activation function, and culminating in a linear activation
+function as an output layer. The aim was this structure could
+capture the complex relationship among the features.
+Parallelly, the LSTM model has 128 neurons as its first layer,
+followed by 64 neurons at another one, all in ReLU, and lastly
+finished by one linear activation function hidden layer. The
+usage of this model helped to modify the deep temporal
+dependencies among features. A novel aspect of this work was
+the integration of the last two mentioned models, serving as a
+Training
+Test
+K 10
+(1)
+(2)
+(10)
+composite input for the SVR. The training part of input data
+has been injected into both LSTM and ANN.
+C. Model Training and Validation
+In this comprehensive ML approach, raw data first
+undergoes standardization using StandardScaler and it would
+be reshaped into three-dimensional arrays to meet the LSTM
+model requirements, alongside the ANN, both would be
+trained on this preprocessed data, reserving 20% as a validation
+set to guard against overfitting. Post-training, predictions from
+both previous models are concatenated, forming a proper input
+for the SVR, which acts as a meta-model. In the end, using this
+sophisticated, multi-staged training process will be evaluated
+in the next part to assess its value.
+Fig. 4. Model training steps
+Fig. 5. ML inputs and outputs
+D. Performance Evaluation
+For the evaluation process R2 and MSLE metrics within
+10-fold cross-validation framework have been used to ensure
+the model effectiveness, stability and reliability. Sensitivity
+test, involving changes in input tolerances and evaluation
+metrics, assesses the forecasting robustness in this work. For
+having various sensitivities, different 'epsilon' values in the
+SVR controls the epsilon-intensive tube, that impacts support
+vector count and regression smoothness[19].
+V. RESULTS
+The results obtained from this model are presented in this
+section. Through a complete assessment, as can be seen in Fig.
+6, different aspects of this model have been observed. The
+proposed machine learning framework has been shown to
+significantly enhance the accuracy of wind power forecasts,
+surpassing the traditional statistical methods. The R2 value
+reaches 0.9985 in this model, which is approximately higher
+than the most competitive one among the three mentioned
+methods. Moreover, for the MSLE section, the Hybrid model
+received 0.001, which is considered the best against the other
+used model in this work.
+Fig. 6. Evaluation metrics for the model
+Fig. 7. Training and validation MSLE for the Hybrid
+Fig. 8. Sensitivity test result for the Hybrid
+For the performance, the MSLE served as a vital metric,
+depicting the discrepancies in predicted value versus the actual
+one during both training and validation. These processes have
+been done through 50 epochs, that have been plotted in Fig. 7,
+revealing the constant reduction in error, thus understanding
+the model’s ability to generalize and learn the data effectively.
+For the sensitivity check of inputs, an analysis has been
+performed to measure the model’s responsiveness to
+variations in inputs. The visualization of three different SVR's
+epsilon parameters, 0.1, 0.2, and 0.3, has been demonstrated
+0 0.2 0.4 0.6 0.8 1 1.2
+ANN
+LSTM
+S R
+Hybrid
+Hybrid 10 fold
+ANN LSTM S R Hybrid Hybrid 10 fold
+MSLE 0.1147 0.1 24 0.08 0.001 0.00
+R2 0. 338 0. 3 6 0. 288 0. 5 0. 85
+Evaluation Metrics
+MSLE R2
+in Fig. 8, which shows the robustness and relative influence
+on the predictive outcome. The necessity of this experiment
+was to identify how varying the sensitivity, which here is the
+SVR, could impact the prediction. Maintaining high R2
+and
+small MSLE, yet slightly increasing during the sensitivity test,
+impacts the successful capturing of underlying data
+dynamics and model adoption at managing proportional
+divergences.
+Lastly in Fig. 9, a comparison between the real value and
+the prediction ones after using the hybrid model has been
+illustrated representing the power of this model in using this
+specific dataset over one day in the Alberta for Enercon
+E126/6500 turbine.
+The architecture of the proposed model, combining the
+strength of ANN, LSTM, and SVR, leads to more reliable and
+precise forecasting. The results underscore the model’s
+robustness throughout this process. R2
+and MSLE have been
+used in this work, alongside the implementation of K-fold
+cross-validation for validating the proposed work. The
+sensitivity analysis, revealed the model's adaptability to
+varying input parameters, particularly within SVR, by
+considering different ‘epsilons’. Using this method, evaluate
+the model flexibility and responsiveness against the input
+variations.
+Fig. . Final prediction vs actual values for the Hybrid (UTC time )
+VI. FUTURE WORKS
+The proposed Hybrid model, in the field of R2 and MSLE,
+achieved better results than other methods. This improvement
+suggests that this model could provide more reliable
+predictions, potentially reducing the operational risks and cost
+in the wind power management. However, it is important to
+note that, the current model has been tested under conditions
+specific to the Canadian provinces of British Colombia,
+Manitoba, and Nova Scotia. Based on the success of the hybrid
+model, future works could benefit from exploring several
+avenues for enhancement and refinement. One potential area
+of focus could be the integration of additional environmental
+factors, such as atmospheric pressure, to expose its beneficial
+impact on the model performance and accuracy. Moreover,
+considering different locations or various turbines could
+provide valuable insights into the generalizability and
+applicability of the hybrid model in diverse situations. Last but
+not least, combining other ML methods, exclusively deep
+learning ones, could aid the model in obtaining a better
+understanding of the dataset for further accurate and
+wholesome predictions.
+REFERENCES
+[1] Canadian Environmental Protection Act, “Canada Gazette, Part I, olume
+157, Number 33: Clean Electricity Regulations.” Accessed: Feb. 02, 2024.
+[Online]. Available: https://www.gazette.gc.ca/rp-pr/p1/2023/2023-08-
+19/html/reg1-eng.html
+[2] S. M. Valdivia-Bautista, J. A. Domínguez-Navarro, M. Pérez-Cisneros, C.
+J. Vega-Gómez, and B. Castillo-Téllez, “Artificial Intelligence in Wind
+Speed Forecasting: A Review,” Energies, vol. 16, no. 5, p. 2457, Mar.
+2023, doi: 10.3390/en16052457.
+[3] L.-L. Li, X. Zhao, M.-L. Tseng, and R. R. Tan, “Short-term wind power
+forecasting based on support vector machine with improved dragonfly
+algorithm,” Journal of Cleaner Production, vol. 242, p. 118447, Jan.
+2020, doi: 10.1016/j.jclepro.2019.118447.
+[4] S. Hu et al., “Hybrid forecasting method for wind power integrating spatial
+correlation and corrected numerical weather prediction,” Applied Energy,
+vol. 293, p. 116951, Jul. 2021, doi: 10.1016/j.apenergy.2021.116951.
+[5] M. Lang, J. Witherington, H. Turner, M. J. Owens, and P. Riley,
+“Improving Solar Wind Forecasting Using Data Assimilation,” Space
+Weather, vol. 19, no. 7, p. e2020SW002698, Jul. 2021, doi:
+10.1029/2020SW002698.
+[6] H. H. H. Aly, “A Hybrid Optimized Model of Adaptive Neuro-Fuzzy
+Inference System, Recurrent Kalman Filter and Neuro-Wavelet for Wind
+Power Forecasting Driven by DFIG,” Energy, vol. 239, p. 122367, Jan.
+2022, doi: 10.1016/j.energy.2021.122367.
+[7] A. Bensalah, M. A. Benhamida, G. Barakat, and Y. Amara, “Large wind
+turbine generators: State-of-the-art review,” in 2018 XIII International
+Conference on Electrical Machines (ICEM), Alexandroupoli: IEEE, Sep.
+2018, pp. 2205–2211. doi: 10.1109/ICELMACH.2018.8507165.
+[8] Q. Tang, “Estimation of Wind Hazard over Canada and Reliability-based
+Assignment of Design Wind Load”.
+[9] Nasa, “Modern-Era Retrospective analysis for Research and Applications,
+ersion 2.” Accessed: Feb. 04, 2024. [Online]. Available:
+https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/
+[10] T. Thomas and E. Rajabi, “A systematic review of machine learning-based
+missing value imputation techniques,” DTA, vol. 55, no. 4, pp. 558–585,
+Aug. 2021, doi: 10.1108/DTA-12-2020-0298.
+[11] D. N. Bardoliwala, M. . Desai, and A. D. Shanbhag, “The Impact of
+Missing Data Handling Techniques on the Accuracy of COVID-19
+Mortality Prediction,” in 2023 3rd International Conference on Electrical,
+Computer, Communications and Mechatronics Engineering (ICECCME),
+Tenerife, Canary Islands, Spain: IEEE, Jul. 2023, pp. 1–6. doi:
+10.1109/ICECCME57830.2023.10253044.
+[12] V. N. G. Raju, K. P. Lakshmi, V. M. Jain, A. Kalidindi, and V. Padma,
+“Study the Influence of Normalization/Transformation process on the
+Accuracy of Supervised Classification,” in 2020 Third International
+Conference on Smart Systems and Inventive Technology (ICSSIT),
+Tirunelveli, India: IEEE, Aug. 2020, pp. 729–735. doi:
+10.1109/ICSSIT48917.2020.9214160.
+[13] ActiveState, “What Is Pandas In Python? Everything You Need To
+Know.” Accessed: Aug. 0 , 2022. [Online]. Available:
+https://www.activestate.com/resources/quick-reads/what-is-pandas-in-
+python-everything-you-need-to-know/
+[14] A. D. Rasamoelina, F. Adjailia, and P. Sincak, “A Review of Activation
+Function for Artificial Neural Network,” in 2020 IEEE 18th World
+Symposium on Applied Machine Intelligence and Informatics (SAMI),
+Herlany, Slovakia: IEEE, Jan. 2020, pp. 281–286. doi:
+10.1109/SAMI48414.2020.9108717.
+[15] H. M and S. M.N, “A Review on Evaluation Metrics for Data
+Classification Evaluations,” IJDKP, vol. 5, no. 2, pp. 01–11, Mar. 2015,
+doi: 10.5121/ijdkp.2015.5201.
+[16] “Renewable.ninja.” Jan. 27, 2024. Accessed: Jan. 27, 2024. [Online].
+Available: https://www.renewables.ninja
+[17] K. L. Jorgensen and H. R. Shaker, “Wind Power Forecasting Using
+Machine Learning: State of the Art, Trends and Challenges,” in 2020 IEEE
+8th International Conference on Smart Energy Grid Engineering (SEGE),
+Oshawa, ON, Canada: IEEE, Aug. 2020, pp. 44–50. doi:
+10.1109/SEGE49949.2020.9181870.
+[18] F. Shahid, A. Zameer, and M. Muneeb, “A novel genetic LSTM model for
+wind power forecast,” Energy, vol. 223, p. 120069, May 2021, doi:
+10.1016/j.energy.2021.120069.
+[19] R. A. Ashley and C. F. Parmeter, “Sensitivity Analysis of an OLS Multiple
+Regression Inference with Respect to Possible Linear Endogeneity in the
+Explanatory Variables, for Both Modest and for Extremely Large
+Samples,” Econometrics, vol. 8, no. 1, p. 11, Mar. 2020, doi:
+10.3390/econometrics8010011.
+
