@@ -1,0 +1,48 @@
+{
+  "system": "IEEE 39-bus",
+  "poi_buses": [
+    3,
+    8,
+    15,
+    20,
+    26,
+    32
+  ],
+  "baseline_total_mw": 2100.0,
+  "after_total_mw": 2450.0,
+  "increment_mw": 350.0,
+  "increment_pct": 16.666666666666668,
+  "best_plan_cost_m": 50.0,
+  "n1_pass": false,
+  "n_episodes": 30,
+  "best_plan": [
+    {
+      "device": "UPFC",
+      "bus": 0,
+      "branch": 46,
+      "rating_mvar": 150.0,
+      "cost_m": 33.0
+    },
+    {
+      "device": "TCSC",
+      "bus": 0,
+      "branch": 27,
+      "rating_mvar": 50.0,
+      "cost_m": 6.0
+    },
+    {
+      "device": "SVC",
+      "bus": 32,
+      "branch": null,
+      "rating_mvar": 50.0,
+      "cost_m": 5.0
+    },
+    {
+      "device": "TCSC",
+      "bus": 0,
+      "branch": 20,
+      "rating_mvar": 50.0,
+      "cost_m": 6.0
+    }
+  ]
+}
