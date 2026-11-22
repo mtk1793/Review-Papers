@@ -1,0 +1,70 @@
+{
+  "study_id": "now23-northatlantic-2020-hydrogen-v1",
+  "dataset": {
+    "provider": "NREL/NLR NOW-23 North Atlantic",
+    "years": [
+      2017,
+      2018,
+      2019,
+      2020
+    ],
+    "train_years": [
+      2017,
+      2018
+    ],
+    "calibration_year": 2019,
+    "test_year": 2020,
+    "latitude": 45.38,
+    "longitude": -61.5,
+    "interval_minutes": 15,
+    "variable": "windspeed_100m",
+    "site_coverage_must_be_checked": true
+  },
+  "plant": {
+    "wind_capacity_mw": 700.0,
+    "electrolyzer_capacity_mw": 50.0,
+    "electrolyzer_min_load_fraction": 0.1,
+    "ramp_limit_mw_per_min": 5.0,
+    "export_limit_mw": 300.0,
+    "bess_energy_mwh": 20.0,
+    "bess_power_mw": 10.0,
+    "roundtrip_efficiency": 0.9,
+    "h2_tank_capacity_kg": 500.0,
+    "h2_specific_energy_mwh_per_kg": 0.052,
+    "hydrogen_demand_kg_per_day": 800.0,
+    "cold_start_equivalent_hours": 0.0,
+    "ramp_wear_eq_hours_per_mw2": 0.0002,
+    "thermal_wear_eq_hours_per_mw2": 0.0,
+    "stack_design_life_eq_hours": 60000.0,
+    "stack_replacement_usd": 15000000.0
+  },
+  "market": {
+    "h2_sale_price_usd_per_kg": 5.0,
+    "energy_export_price_usd_per_mwh": 42.0,
+    "energy_import_price_usd_per_mwh": 90.0,
+    "h2_unmet_demand_penalty_usd_per_kg": 0.5,
+    "price_series_is_real": false,
+    "price_note": "constant scenario assumptions only; NOT historical Nova Scotia spot prices"
+  },
+  "learning": {
+    "lookback_steps": 24,
+    "forecast_horizon_steps": 4,
+    "lstm_epochs": 10,
+    "lstm_hidden": 32,
+    "rl_train_steps": 15000,
+    "rl_seeds": [
+      11,
+      23,
+      47,
+      83,
+      101
+    ],
+    "confidence_level": 0.95,
+    "bootstrap_reps": 2000,
+    "bootstrap_block_steps": 96
+  },
+  "data_paths": {
+    "wind_csv": "data/wind_normalized.csv",
+    "provenance": "data/provenance.json"
+  }
+}

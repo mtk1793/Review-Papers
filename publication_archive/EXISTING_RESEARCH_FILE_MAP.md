@@ -1,6 +1,6 @@
 # Companion research files copied from the pre-existing repository
 
-This directory contains **existing GitHub research sources** cross-referenced to the 16-paper revision package. They are distinct from each paper's original source manuscript and independently revised Word/PDF/Markdown deliverables, which have not been uploaded from the local ZIP. Files are copied by exact Git blob SHA, preserving their contents and their original locations.
+This directory contains **existing GitHub research sources** cross-referenced to the original 16-paper revision package. They are distinct from the source manuscripts and revised deliverables in that package. Paper 17 has a separate complete upload documented in `P17_Hydrogen/` and `UPLOAD_STATUS.md`. Files are copied by exact Git blob SHA, preserving their contents and their original locations.
 
 | Archive paper | Pre-existing repository sources copied | Note |
 |---|---:|---|
@@ -16,7 +16,8 @@ This directory contains **existing GitHub research sources** cross-referenced to
 | P14_Hydrogen_MARL | 3 | Associated work, not automatically results supporting this revised paper |
 | P15_Storage_Planning_Review | 2 | Associated work, not automatically results supporting this revised paper |
 | P16_Solar_Hydrogen_EV | 1 | Associated work, not automatically results supporting this revised paper |
+| P17_Hydrogen | 0 | No directly matching pre-existing repository work identified; the supplied manuscript and recovery package are stored in this archive folder. |
 
 No direct matching repository work was available for P06, P08, P09, or P12. Their folder descriptions in this repository remain research plans/index references, not complete committed manuscripts.
 
-**Archive transfer still outstanding:** 16 revised Word and PDF documents, available original Word/PDF files, extracted source figures, source-specific reference audit and editorial notes. The import helper in `publication_archive/scripts/import_publications.py` reads the prepared local ZIP, but it must be run on a computer with the repository checkout and with redistribution rights checked.
+**Archive transfer still outstanding for the original 16-paper package:** revised Word and PDF documents, available original Word/PDF files, extracted source figures, source-specific reference audits and editorial notes. The import helper in `publication_archive/scripts/import_publications.py` reads the prepared local ZIP, but it must be run on a computer with the repository checkout and with redistribution rights checked.

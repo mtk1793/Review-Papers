@@ -1,0 +1,54 @@
+{
+  "dataset_kind": "SYNTHETIC_TEST_FIXTURE",
+  "not_scientific_validation": true,
+  "forecast_calibration_software_test": {
+    "median_mae_mw": 291.48858642578125,
+    "median_rmse_mw": 365.74462890625,
+    "interval_80_coverage": 0.8059071729957806,
+    "interval_mean_width_mw": 544.6630859375,
+    "interval_score_80": 774.3211669921875
+  },
+  "baseline": {
+    "n_steps": 350,
+    "wind_mwh": 31792.038619348088,
+    "electrolyzer_input_mwh": 177.66666666666634,
+    "electrolyzer_capacity_factor": 0.040609523809523734,
+    "curtailment_mwh": 11903.62222856571,
+    "production_kg": 3416.6666666666606,
+    "delivery_kg": 2916.666666666667,
+    "gross_cash_usd": 842434.8217461933,
+    "wear_charge_usd": 2106.817777777773,
+    "scenario_net_usd": 840328.0039684155,
+    "equivalent_aging_hours": 8.427271111111091,
+    "num_starts": 75,
+    "max_balance_error_mw": 0.0,
+    "note": "scenario net is NOT NPV; does not include full CAPEX, financing, maintenance, transport or tax"
+  },
+  "hierarchy": {
+    "n_steps": 350,
+    "wind_mwh": 31792.038619348088,
+    "electrolyzer_input_mwh": 176.79999999999967,
+    "electrolyzer_capacity_factor": 0.040411428571428494,
+    "curtailment_mwh": 11971.304278907653,
+    "production_kg": 3399.9999999999936,
+    "delivery_kg": 2916.666666666667,
+    "gross_cash_usd": 839642.3199751019,
+    "wear_charge_usd": 1270.5599311782548,
+    "scenario_net_usd": 838371.7600439236,
+    "equivalent_aging_hours": 5.08223972471302,
+    "num_starts": 116,
+    "max_balance_error_mw": 0.0,
+    "note": "scenario net is NOT NPV; does not include full CAPEX, financing, maintenance, transport or tax"
+  },
+  "paired_bootstrap_software_test": {
+    "mean_difference": -5.589268355691387,
+    "ci95_low": -9.889277575725295,
+    "ci95_high": -1.4884891621076672,
+    "bootstrap_sign_p_approx": 0.01,
+    "block_size_steps": 24,
+    "reps": 200
+  },
+  "algorithms": "LSTM quantile, double-critic SAC, 51-quantile QR-DQN",
+  "RL_training_steps": 240,
+  "RL_training_step_count_is_insufficient_for_claiming_convergence": true
+}

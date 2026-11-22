@@ -1,0 +1,15 @@
+Comments to the Author
+The paper proposes a multi-agent reinforcement learning approach to extend electrolyzer life in offshore wind-hydrogen systems. The paper presents a modular decision pipeline combining an LSTM forecaster, a soft actor-critic (SAC) controller, and a quantile regression deep Q-network (QR-DQN) arbitrage module. SAC and QR-DQN are two components that use reinforcement learning (RL). Detailed comments are given below.
+
+1. The formulation does not yet satisfy a multi-agent RL because Agent 1 is a supervised LSTM forecaster, not an RL agent; it has no actions, reward, policy, or environment interaction. Agent 2 and Agent 3 are RL modules, but they are trained sequentially with fixed upstream agents, which makes the framework closer to a hybrid hierarchical control pipeline: supervised forecasting + SAC control + QR-DQN arbitrage.
+2. The introduction is long and not referenced accordingly. The authors provide quantitative results of prior studies without providing the corresponding references.
+3. The authors stack multiple references at the end of the paragraph, but references need to be distributed accordingly.
+4. The authors need to define how probabilistic forecasts are produced and calibrated, and show their results along with statistical significance.
+5. The authors must separate baseline design life, simulated volatile-wind life, and economic stack-life metric. The abstract claims an 8.1% extension of electrolyzer stack life, but the conclusion claims a 21.3% electrolyzer life extension.
+6. Table 2 should be referenced.
+7. Table 3 shows a curtailment utilization of 78.2%. However, section 1.b mentions a curtailment utilization of 30.6%.
+8. The manuscript should be revised to fix all inconsistencies throughout the manuscript and provide one final result.
+9. The paper states results are reported as mean +-95% confidence interval, but Table 3 and the figures report single values only.
+10. Reference [29] is cited to support a PEM electrolyzer thermal degradation threshold, but the listed paper is about Pd–Ag catalysts for ethanol electrooxidation.
+11. Several references are duplicated or inconsistent: [1] and [28] appear to be the same paper; [4] and [26] are the same Rakousky paper; [5] and [21] are the same Scheepers paper.
+12. The manuscript needs a thorough proofreading to fix the typos and inconsistencies. The current manuscript reads like a report with multiple bullet points and small paragraphs containing one sentence.  

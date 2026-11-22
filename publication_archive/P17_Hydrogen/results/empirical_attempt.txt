@@ -1,0 +1,2 @@
+BLOCKED: real source CSV and provenance absent. Run matching dataset downloader first; no synthetic data accepted.
+exit_code=1
